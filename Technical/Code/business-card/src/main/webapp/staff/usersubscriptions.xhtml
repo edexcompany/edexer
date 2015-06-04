@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff | User Subscriptions</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+	<div style="display: inline-block;">
+			<p:menubar style="width:1225px;">
+				<p:submenu label="Users" icon="ui-icon-document">
+					<p:menuitem value="New" url="adduser.xhtml" />
+					<p:menuitem value="Users" url="users.xhtml" />
+				</p:submenu>
+				<p:submenu label="Subscriptions" icon="ui-icon-document">
+					<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+				</p:submenu>
+			
+					<p:submenu label="Settings" icon="ui-icon-document">
+					<p:menuitem value="Setting" url="setting.xhtml" />
+					<p:menuitem value="website Message" url="setWebsiteMessage.xhtml" />
+				</p:submenu>
+			</p:menubar>
+
+		</div>
+		<div style="margin-left: 1238px; margin-top: -60px;">
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+
+			</p:commandButton>
+		</div>
+	<h1>User Subscriptions</h1>
+
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable var="car"
+			value="#{staffSubscriptionsManagedBean.userSubscriptionList}"
+			widgetVar="carsTable" emptyMessage="No user subscriptions found"
+			filteredValue="#{staffSubscriptionsManagedBean.filteredUserSubscriptionList}"
+			editable="true" paginator="true" rows="10" id="datatable">
+
+			<p:ajax event="rowEdit"
+				listener="#{staffSubscriptionsManagedBean.onRowEdit}"
+				update=":form:msgs" />
+			<p:ajax event="rowEditCancel"
+				listener="#{staffSubscriptionsManagedBean.onRowCancel}"
+				update=":form:msgs" />
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Search all fields " />
+					<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()"
+						style="width:150px" placeholder="Enter keyword" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column
+				filterBy="#{car.userByUserId.firstName}#{car.userByUserId.lastName}"
+				headerText="User" filterMatchMode="contains">
+
+				<h:outputText
+					value="#{car.userByUserId.firstName} #{car.userByUserId.lastName}" />
+
+			</p:column>
+
+			<p:column filterBy="#{car.subscription.subscriptionTypeName}"
+				headerText="Type" filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.subscription.subscriptionTypeName}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{car.subscription}"
+							converter="subscriptionTypeConverter">
+							<f:selectItems
+								value="#{utilitiesManagesBean.listSubscriptionTypes()}"
+								var="sub" itemLabel="#{sub.subscriptionTypeName}"
+								itemValue="#{sub}" />
+						</p:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column filterBy="#{car.startDate}" headerText="Start Date"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.startDate}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar id="startdate" value="#{car.startDate}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column filterBy="#{car.endDate}" headerText="End Date"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.endDate}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar id="enddate" value="#{car.endDate}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+
+			<p:column filterBy="#{car.subscriptionDate}" headerText="Sub Date"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.subscriptionDate}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar id="subdate" value="#{car.subscriptionDate}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column filterBy="#{car.subscriptionStatus}" headerText="Status"
+				filterMatchMode="in">
+				<f:facet name="filter">
+					<p:selectCheckboxMenu label="Status"
+						converter="subscriptionStatusConverter"
+						onchange="PF('carsTable').filter()" panelStyle="width:125px"
+						scrollHeight="150">
+						<f:selectItems
+							value="#{utilitiesManagesBean.listSubscriptionStatus()}" var="s"
+							itemLabel="#{s.subStatusName}" itemValue="#{s}" />
+					</p:selectCheckboxMenu>
+				</f:facet>
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.subscriptionStatus.subStatusName}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{car.subscriptionStatus}"
+							converter="subscriptionStatusConverter">
+							<f:selectItems
+								value="#{utilitiesManagesBean.listSubscriptionStatus()}"
+								var="status" itemLabel="#{status.subStatusName}"
+								itemValue="#{status}" />
+						</p:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column
+				filterBy="#{car.userByUserId.firstName}#{car.userBySubscriptionOwner.lastName}"
+				headerText="Owner" filterMatchMode="contains">
+				<h:outputText
+					value="#{car.userBySubscriptionOwner.firstName} #{car.userBySubscriptionOwner.lastName}" />
+			</p:column>
+
+			<p:column style="width:32px">
+				<p:rowEditor />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
+
+	</h:form>
+</h:body>
+</html>

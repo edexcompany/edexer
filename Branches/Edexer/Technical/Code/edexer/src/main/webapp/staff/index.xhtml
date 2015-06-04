@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff module</title>
+</h:head>
+<body>
+	<h1>Dashboard</h1>
+
+	<h:form id="menuform">
+		<div style="display: inline-block;">
+			<p:menubar style="width:1225px;">
+				<p:submenu label="Users" icon="ui-icon-document">
+					<p:menuitem value="New" url="adduser.xhtml" />
+					<p:menuitem value="Users" url="users.xhtml" />
+				</p:submenu>
+				<p:submenu label="Subscriptions" icon="ui-icon-document">
+					<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+				</p:submenu>
+				<p:submenu label="Settings" icon="ui-icon-document">
+					<p:menuitem value="Setting" url="setting.xhtml" />
+				</p:submenu>
+			</p:menubar>
+
+		</div>
+		<div style="margin-left: 1238px; margin-top: -60px;">
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+
+			</p:commandButton>
+		</div>
+
+	</h:form>
+
+</body>
+</html>

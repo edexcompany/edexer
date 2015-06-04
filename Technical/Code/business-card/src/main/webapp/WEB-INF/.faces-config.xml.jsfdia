@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
+  SHAPE="440,184,50,73" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#register.xhtml:0" NAME="item"
+   PATH="/register.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#register.xhtml" NAME="output"
+    PATH="/register.xhtml" TARGET="rules:#register.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="staff::#staff#index.xhtml" NAME="output1"
+    PATH="/staff/index.xhtml" TARGET="rules:#staff#index.xhtml"
+    TITLE="staff" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="user::#user#index.xhtml" NAME="output2"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="user" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
+   PATH="/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#register.xhtml" NAME="output"
+    PATH="/register.xhtml" TARGET="rules:#register.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="staff::#staff#index.xhtml" NAME="output1"
+    PATH="/staff/index.xhtml" TARGET="rules:#staff#index.xhtml"
+    TITLE="staff" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="user::#user#index.xhtml" NAME="output2"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="user" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#staff#index.xhtml" PATH="/staff/index.xhtml"
+  SHAPE="528,48,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#user#user_home.xhtml"
+  PATH="/user/user_home.xhtml" SHAPE="56,280,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#user#addbusinesscard.xhtml"
+  PATH="/user/addbusinesscard.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#addbusinesscard.xhtml:0" NAME="item"
+   PATH="/user/addbusinesscard.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="newcard::#user#addbusinesscard.xhtml"
+    NAME="output" PATH="/user/addbusinesscard.xhtml"
+    TARGET="rules:#user#addbusinesscard.xhtml" TITLE="newcard" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index::#user#index.xhtml" NAME="output1"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="user::#user#user_home.xhtml" NAME="output2"
+    PATH="/user/user_home.xhtml" TARGET="rules:#user#user_home.xhtml"
+    TITLE="user" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output3"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#index.xhtml" PATH="/user/index.xhtml"
+  SHAPE="544,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#index.xhtml:0" NAME="item"
+   PATH="/user/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#usersettings.xhtml"
+  PATH="/user/usersettings.xhtml" SHAPE="512,657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#usersettings.xhtml:0" NAME="item"
+   PATH="/user/usersettings.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="saved::#user#usersettings.xhtml"
+    NAME="output" PATH="/user/usersettings.xhtml"
+    TARGET="rules:#user#usersettings.xhtml" TITLE="saved" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output1"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#templates#common#commonHeader.xhtml"
+  PATH="/templates/common/commonHeader.xhtml" SHAPE="32,593,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#templates#common#commonHeader.xhtml:0"
+   NAME="item" PATH="/templates/common/commonHeader.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="corp_home::..#user#corp#corp_user_home.xhtml" NAME="output"
+    PATH="../user/corp/corp_user_home.xhtml"
+    TARGET="rules:..#user#corp#corp_user_home.xhtml" TITLE="corp_home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="corp_upg::..#user#corp_upgrade.xhtml"
+    NAME="output1" PATH="../user/corp_upgrade.xhtml"
+    TARGET="rules:..#user#corp_upgrade.xhtml" TITLE="corp_upg" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="website::#index.xhtml" NAME="output2"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="website" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:..#user#corp_upgrade.xhtml"
+  PATH="../user/corp_upgrade.xhtml" SHAPE="256,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:..#user#corp#corp_user_home.xhtml"
+  PATH="../user/corp/corp_user_home.xhtml" SHAPE="256,609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,961,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#user#index.xhtml" NAME="output"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="user::#user#index.xhtml" NAME="output1"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="user" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Admin::#staff#index.xhtml" NAME="output2"
+    PATH="/staff/index.xhtml" TARGET="rules:#staff#index.xhtml"
+    TITLE="Admin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="User::#user#index.xhtml" NAME="output3"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="User" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#addsubscription.xhtml"
+  PATH="/addsubscription.xhtml" SHAPE="32,1249,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#addsubscription.xhtml:0" NAME="item"
+   PATH="/addsubscription.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#businesscard_details.xhtml"
+  PATH="/user/businesscard_details.xhtml" SHAPE="32,1249,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#businesscard_details.xhtml:0"
+   NAME="item" PATH="/user/businesscard_details.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index::#user#index.xhtml" NAME="output1"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="bc_details::#user#businesscard_details.xhtml" NAME="output2"
+    PATH="/user/businesscard_details.xhtml"
+    TARGET="rules:#user#businesscard_details.xhtml" TITLE="bc_details" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#personal#pro_upgrade.xhtml"
+  PATH="/user/personal/pro_upgrade.xhtml" SHAPE="32,1649,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#personal#pro_upgrade.xhtml:0"
+   NAME="item" PATH="/user/personal/pro_upgrade.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#user#index.xhtml" NAME="output"
+    PATH="/user/index.xhtml" TARGET="rules:#user#index.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#corp#corp_upgrade.xhtml"
+  PATH="/user/corp/corp_upgrade.xhtml" SHAPE="32,1985,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#corp#corp_upgrade.xhtml:0" NAME="item"
+   PATH="/user/corp/corp_upgrade.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#user#corp#corp_user_home.xhtml"
+    NAME="output" PATH="/user/corp/corp_user_home.xhtml"
+    TARGET="rules:#user#corp#corp_user_home.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#staff#adduser.xhtml"
+  PATH="/staff/adduser.xhtml" SHAPE="32,2321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#staff#adduser.xhtml:0" NAME="item"
+   PATH="/staff/adduser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#staff#users.xhtml" NAME="output"
+    PATH="/staff/users.xhtml" TARGET="rules:#staff#users.xhtml"
+    TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="error::#staff#adduser.xhtml" NAME="output1"
+    PATH="/staff/adduser.xhtml" TARGET="rules:#staff#adduser.xhtml"
+    TITLE="error" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#staff#users.xhtml" PATH="/staff/users.xhtml"
+  SHAPE="240,2561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#user#corp#corp_user_home.xhtml"
+  PATH="/user/corp/corp_user_home.xhtml" SHAPE="32,2977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#passwordreset.xhtml"
+  PATH="/passwordreset.xhtml" SHAPE="32,2977,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#passwordreset.xhtml:0" NAME="item"
+   PATH="/passwordreset.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#requests.xhtml"
+  PATH="/user/requests.xhtml" SHAPE="96,1345,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#requests.xhtml:0" NAME="item"
+   PATH="/user/requests.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="actionlogout::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="actionlogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

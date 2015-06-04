@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<body>
+	<ui:composition template="/templates/common/commonLayout.xhtml">
+		<ui:define name="title">FindOn - Settings</ui:define>
+		<ui:define name="content">
+			<div class="content-wrapper">
+				<aside class="left-side">
+				<h2>Requests</h2>
+
+				<ul class="setting-tabs-titles">
+					<li><a href="#" class="settingsTitle" data-cont="cont1"><i
+							class=" fa fa-user"></i>Sent</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont2"><i
+							class=" fa fa-user"></i>Received</a></li>
+				</ul>
+				</aside>
+				<p:growl id="grow1" widgetVar="wmsj" showDetail="true" />
+			
+				<aside class="main-content"> <!--   Sent Requests  --> <h:form
+					id="sentForm">
+					<p:focus context="sentForm" />
+					<div class="settingsFormArea cont1">
+						<ul class="left-side-settings">
+							<h2></h2> 
+							<p:dataTable styleClass="table-request-header-override" var="bcRequest" style="width:600px;"  scrollable="true" scrollHeight="400"
+								value="#{bcRequestManagedBean.listSentBcRequest}">
+								<p:column headerText="To" width="150" style="text-align:center;"  >
+									<h:outputText
+										value="#{bcRequest.userByReciverUserId.firstName}" />
+								</p:column>
+
+								<p:column headerText="Message" style="text-align:center;" 
+									width="180">
+									<h:outputText value="#{bcRequest.message}" />
+								</p:column>
+
+								<p:column headerText="Date" width="130" >
+									<h:outputText value="#{bcRequest.sendDate}" />
+								</p:column>
+
+								<p:column headerText="Status" style="text-align:center;">
+									<h:outputText value="#{bcRequest.bcRequestStatus.statusName}" />
+								</p:column>
+							</p:dataTable>
+						</ul>
+					</div>
+				</h:form> <!--   Received Requests  --> <h:form id="profileForm">
+					<p:focus context="profileForm" />
+					<div class="settingsFormArea cont2">
+						<ul class="left-side-settings">							<h2></h2>
+							<p:dataTable var="bcRequest" id="dtReceive" styleClass="table-request-header-override" editable="true"  scrollable="true" scrollHeight="400"
+								style="width:600px;"
+								value="#{bcRequestManagedBean.listReceivedBcRequest}">
+								<p:ajax event="rowEdit"
+									listener="#{bcRequestManagedBean.onRowEdit(bcRequest)}"
+									update=":msgs" />
+								<p:ajax event="rowEditCancel"
+									listener="#{bcRequestManagedBean.onRowCancel()}" update=":msgs" />
+								<p:column headerText="From" width="150" 
+									style="text-align:center;">
+									<h:outputText value="#{bcRequest.userBySenderUserId.firstName}" />
+								</p:column>
+								<p:column headerText="Message" style="text-align:center;" 
+									width="180">
+									<h:outputText value="#{bcRequest.message}" />
+								</p:column>
+								<p:column headerText="Date" width="130"  >
+									<h:outputText value="#{bcRequest.sendDate}" />
+								</p:column>
+
+								<p:column headerText="Status" 
+									style="text-align:center;width:100px;">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{bcRequest.bcRequestStatus.statusName}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu id="country"
+												value="#{bcRequestManagedBean.bcRequestStatusString}">
+												
+												<f:selectItems
+													value="#{bcRequestManagedBean.requestStatuses}" />
+											</p:selectOneMenu>
+
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column style="width:32px">
+									<p:rowEditor />
+								</p:column>
+							</p:dataTable>
+						</ul>
+					</div>
+				</h:form> </aside>
+				<div class="clearFix"></div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

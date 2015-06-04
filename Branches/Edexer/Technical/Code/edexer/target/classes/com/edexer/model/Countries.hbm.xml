@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.Countries" table="countries" catalog="edexer_edexer">
+        <id name="idCountry" type="java.lang.Integer">
+            <column name="idCountry" />
+            <generator class="identity" />
+        </id>
+        <property name="countryCode" type="string">
+            <column name="countryCode" length="2" not-null="true" />
+        </property>
+        <property name="countryName" type="string">
+            <column name="countryName" length="45" not-null="true" />
+        </property>
+        <property name="currencyCode" type="string">
+            <column name="currencyCode" length="3" />
+        </property>
+        <property name="languages" type="string">
+            <column name="languages" length="30" />
+        </property>
+        <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="country" />
+            </key>
+            <one-to-many class="com.edexer.model.Address" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.Email" table="email" catalog="edexer_edexer">
+        <composite-id name="id" class="com.edexer.model.EmailId">
+            <key-property name="bcId" type="int">
+                <column name="bc_id" />
+            </key-property>
+            <key-property name="emailAddress" type="string">
+                <column name="email_address" length="150" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="businessCard" class="com.edexer.model.BusinessCard" update="false" insert="false" fetch="select">
+            <column name="bc_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

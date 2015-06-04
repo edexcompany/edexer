@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<!--<![endif]-->
+
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>Edexer - Home</title>
+	<link rel="shortcut icon" href="images/findon-icon.ico" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputStylesheet library="css" name="normalize.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<link type="text/css" rel="stylesheet" href="../resources/css/font-awesome.css"/>
+	<link type="text/css" rel="stylesheet" href="../resources/css/fonts/lato.css"/>
+	
+	
+	
+	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="prime_customizations.js" />
+</h:head>
+
+
+<body>
+	<!--   *********
+    START OF HEADER 
+    ************* -->
+	<header>
+		<!--   Header Wrapper - 1150 px width   -->
+		<div class="header-wrapper">
+			<!--      Logo            -->
+			<a href="home.html" class="headerLogo"> <img
+				src="../resources/images/findon-logo.png" alt="FindOn Logo" />
+			</a>
+
+			<!--        Search Form    -->
+			<div class="edSearchForm" role="form">
+				<input type="text" class="edSearchBox txtRegular txtGrey1 txt12"
+					id="" placeholder="Search" /> <a href="#" class="edSearchBtn"></a>
+				<a href="#" class="edSearchAdvanced txtRegular txtGreen1 txt12">
+					Advanced </a>
+			</div>
+
+			<!--     Navigator    -->
+			<nav class="mainNav">
+				<ul>
+					<li id="home"><a class="txt12 txtGrey2 txtBold"
+						href="home.html">Home</a></li>
+
+					<li id="mySubscription"><a class="txt12 txtGrey2 txtBold"
+						href="#">My Subscription</a></li>
+					<ul class="dropNav">
+						<li id=""><a class="txt12 txtGrey2 txtBold" href="#">Personal</a>
+						</li>
+						<li id=""><a class="txt12 txtGrey2 txtBold" href="#">Corporate</a>
+						</li>
+					</ul>
+					<li id="settings"><a class="txt12 txtGrey2 txtBold"
+						href="settings.html">Settings</a></li>
+
+				</ul>
+			</nav>
+			<!--         Account Section      -->
+			<div class="accountSection">
+				<div class="accountData">
+					<a class="accountName txt12 txtRegular txtGrey2" href="mycard.html">Ramy
+						Salama</a> <br /> <a class=" txt12 txtRegular txtGrey2"
+						href="index.html">(log out)</a>
+				</div>
+				<a class="accountPic" href="mycard.html"> <img
+					src="../resources/images/avatar.png" alt="Account Profile Picture" />
+				</a>
+			</div>
+		</div>
+	</header>
+	<!--   *********
+    END OF HEADER 
+    ************* -->
+
+	<!--   *********
+    START OF CONTENT 
+    ************* -->
+
+	<div class="homeContainer">
+		<!-- Advanced Filter Options  -->
+		<div class="filterArea">
+			<ul class="left-filter-section">
+				<li><label for="">First Name</label> <input type="text" /></li>
+				<li><label for="">Last Name</label> <input type="text" /></li>
+				<li><label for="">Company</label> <input type="text" /></li>
+				<li><label for="">Sector</label> <input type="text" /></li>
+				<li><label for="">Title</label> <input type="text" /></li>
+				<li><label for="">Email</label> <input type="text" /></li>
+			</ul>
+			<ul class="right-filter-section">
+				<li><label for="">Mobile</label> <input class="padding"
+					type="text" /></li>
+
+				<li><label for="">Tags</label> <input class="padding"
+					type="text" /></li>
+				<li><label for="">Subscription</label>
+					<div class="subsCheckBox">Personal</div>
+					<div class="subsCheckBox">Corporate</div></li>
+				<li><label for="">Order By</label> <select name="" id="">
+						<option>Select One</option>
+						<option>First Name</option>
+						<option>Last Name</option>
+						<option>Company</option>
+				</select></li>
+				<li><label for="">Order Direction</label> <select name="" id="">
+						<option>Ascending</option>
+						<option>Descending</option>
+				</select></li>
+			</ul>
+			<div class="filterControls ">
+				<a id="cancelFilter" href="#" class="greenBtn">Reset</a> <a
+					id="Filter" href="#" class="greenBtn">Filter</a>
+			</div>
+		</div>
+		<!--  Home Controls  -->
+		<div class="homeControls ">
+			<a id="duplication" href="#" class="greenBtn">Check For
+				Duplication</a> <a id="addCard" href="addcard.html" class="greenBtn">Add
+				Card</a> <a id="importCard" href="#" class="greenBtn">Import Cards</a> <a
+				id="exportCard" href="#" class="greenBtn">Export Cards</a>
+		</div>
+
+		<!--  Table Area      -->
+		<div class="tableArea">
+
+			<!--    Table Controls   -->
+			<div class="tableControlsContainer">
+				<a href="#" id="listView"
+					class="leftCurved tableControls tableControls-normal"><i
+					class="fa fa-list"></i> </a> <a href="#" id="cardView"
+					class="rightCurved tableControls tableControls-normal"><i
+					class="fa fa-th-large"></i> </a> <a href="#" id="refresh"
+					class="tableControls tableControls-normal"><i
+					class="fa fa-refresh"></i> </a> <a href="#" id="labels"
+					class="rightCurved tableControls tableControls-normal"><i
+					class="fa fa-th"></i> <i class="fa fa-caret-down"></i> </a>
+			</div>
+			<!--  Checklist Container-->
+			<div class="checklistContainer">
+				<input type="checkbox" name="option01" value="Company" />Company <br />
+				<input type="checkbox" name="option02" value="Position" />Position
+				<br /> <input type="checkbox" name="option03" value="E-Mail" />E-Mail
+				<br /> <input type="checkbox" name="option04" value="Mobile" />Mobile
+				<br /> <input type="checkbox" name="option05" value="Telephone" />Telephone
+				<br /> <input type="checkbox" name="option06" value="Address" />Address
+				<br /> <input type="checkbox" name="option07" value="Website" />Website
+				<br /> <input type="checkbox" name="option08" value="Fax" />Fax <br />
+				<input type="checkbox" name="option09" value="Department" />Departement
+				<br />
+			</div>
+
+
+			<!--    Table - Cards View    -->
+			<div class="tableCards">
+
+				<!--    First Card    -->
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+
+				<!--    8 Cards Repitions    -->
+
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<div class="cardBox">
+					<!--   Contact Card Picture    -->
+					<div class="conPic">
+						<img src="../resources/images/avatar.png" alt="Card Image" />
+					</div>
+
+					<!--   Contact Details    -->
+					<div class="conDetails">
+						<a title="Ramy Salama Ibrahim Mohamed" href="#"
+							class="conName txtBold  txtGreen2">Ramy Salama Ibrahim
+							Mohamed </a>
+						<div title="Marketing Manager"
+							class="conPosition txtRegular txt16 txtGrey1">Marketing
+							Manager</div>
+						<div title="Marketing Manager"
+							class="conCompany txtRegular txt16 txtGrey1">Wave
+							Corporation</div>
+						<div title="Marketing Manager"
+							class="conEmail txtRegular txt16 txtGrey1">ramy@wave.com</div>
+						<div title="Marketing Manager"
+							class="conMobile txtRegular txt16 txtGrey1">01233456789</div>
+					</div>
+					<!--  CheckCard   -->
+
+					<div class="checkCard">
+						<input type="checkbox" name="" value="" />
+					</div>
+					<!--   Card Options    -->
+					<div class="cardOptions">
+						<a href="#" class="showCard txtWhite txt16"><i
+							class="fa fa-eye"></i> </a> <a href="#"
+							class="editCard txtWhite txt16"><i class="fa fa-edit"></i> </a> <a
+							href="#" class="removeCard txtWhite txt16"><i
+							class="fa fa-remove"></i> </a> <a href="#" class="cardLabel txtGrey1"><i
+							class="fa fa-tag"></i> Find On</a> <a href="#"
+							class="cardLabel txtGrey1"><i class="fa fa-tag"></i> Personal</a>
+						<a href="#" class="cardLabel txtGrey1"><i class="fa fa-tag"></i>
+							Corporate</a>
+					</div>
+				</div>
+				<!--    END OF 8 Cards Repitions    -->
+
+			</div>
+			<!--  Table - List View     -->
+			<table class="tableList">
+				<tr class="tableHeadingsRow">
+					<th class="tableHeadings checkRow"><input type="checkbox"
+						name="" value="" /></th>
+					<th class="tableHeadings nameRow">Name</th>
+					<th class="tableHeadings positionRow">Position</th>
+					<th class="tableHeadings companyRow">Company</th>
+					<th class="tableHeadings mobileRow">Mobile</th>
+					<th class="tableHeadings controlsRow">Controls</th>
+				</tr>
+				<tr>
+					<td class="tableRowWhite checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowWhite nameRow">Ramy Salama</td>
+					<td class="tableRowWhite positionRow">Marketing Manager</td>
+					<td class="tableRowWhite companyRow">Wave Corporation</td>
+					<td class="tableRowWhite mobileRow">0123456789</td>
+					<td class="tableRowWhite controlsRow"><a href="#"
+						class="showCard txtBlackColor"><i class="fa fa-eye"></i> </a> <a
+						href="#" class="editCard txtBlackColor"><i class="fa fa-edit"></i>
+					</a> <a href="#" class="removeCard txtBlackColor"><i
+							class="fa fa-remove"></i> </a></td>
+				</tr>
+				<tr>
+					<td class="tableRowGreen checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowGreen nameRow">Mark Edward</td>
+					<td class="tableRowGreen positionRow">Financial Manager</td>
+					<td class="tableRowGreen companyRow">Horizon Solutions</td>
+					<td class="tableRowGreen mobileRow">668376449</td>
+					<td class="tableRowGreen controlsRow"><a href="#"
+						class="showCard txtBlackColor"><i class="fa fa-eye"></i> </a> <a
+						href="#" class="editCard txtBlackColor"><i class="fa fa-edit"></i>
+					</a> <a href="#" class="removeCard txtBlackColor"><i
+							class="fa fa-remove"></i> </a></td>
+				</tr>
+				<tr>
+					<td class="tableRowWhite checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowWhite nameRow"></td>
+					<td class="tableRowWhite positionRow"></td>
+					<td class="tableRowWhite companyRow"></td>
+					<td class="tableRowWhite mobileRow"></td>
+					<td class="tableRowWhite controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowGreen checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowGreen nameRow"></td>
+					<td class="tableRowGreen positionRow"></td>
+					<td class="tableRowGreen companyRow"></td>
+					<td class="tableRowGreen mobileRow"></td>
+					<td class="tableRowGreen controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowWhite checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowWhite nameRow"></td>
+					<td class="tableRowWhite positionRow"></td>
+					<td class="tableRowWhite companyRow"></td>
+					<td class="tableRowWhite mobileRow"></td>
+					<td class="tableRowWhite controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowGreen checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowGreen nameRow"></td>
+					<td class="tableRowGreen positionRow"></td>
+					<td class="tableRowGreen companyRow"></td>
+					<td class="tableRowGreen mobileRow"></td>
+					<td class="tableRowGreen controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowWhite checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowWhite nameRow"></td>
+					<td class="tableRowWhite positionRow"></td>
+					<td class="tableRowWhite companyRow"></td>
+					<td class="tableRowWhite mobileRow"></td>
+					<td class="tableRowWhite controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowGreen checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowGreen nameRow"></td>
+					<td class="tableRowGreen positionRow"></td>
+					<td class="tableRowGreen companyRow"></td>
+					<td class="tableRowGreen mobileRow"></td>
+					<td class="tableRowGreen controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowWhite checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowWhite nameRow"></td>
+					<td class="tableRowWhite positionRow"></td>
+					<td class="tableRowWhite companyRow"></td>
+					<td class="tableRowWhite mobileRow"></td>
+					<td class="tableRowWhite controlsRow"></td>
+				</tr>
+				<tr>
+					<td class="tableRowGreen checkRow"><input type="checkbox"
+						name="" value="" /></td>
+					<td class="tableRowGreen nameRow"></td>
+					<td class="tableRowGreen positionRow"></td>
+					<td class="tableRowGreen companyRow"></td>
+					<td class="tableRowGreen mobileRow"></td>
+					<td class="tableRowGreen controlsRow"></td>
+				</tr>
+
+			</table>
+			<!--   End of Table - List View-->
+			<!--    Table Pages Controls   -->
+			<div class="tablePages">
+				<a id="firstPageBtn" href="#" class="tablePagesBtn txt24"><i
+					class="fa fa-angle-double-left"></i> </a> <a href="#"
+					class="tablePagesBtn"><i class="fa fa-angle-left"></i> </a> <a
+					href="#" class="tablePagesBtn txtGrey2 txt14 txtBold">1</a> <a
+					href="#" class="tablePagesBtn txtGrey2 txt14 txtBold">2</a> <a
+					href="#" class="tablePagesBtn txtGrey2 txt14 txtBold">3</a> <a
+					href="#" class="tablePagesBtn txtGrey2 txt14 txtBold">4</a> <a
+					href="#" class="tablePagesBtn txtGrey2 txt14 txtBold">5</a> <a
+					href="#" class="tablePagesBtn"><i class="fa fa-angle-right"></i>
+				</a> <a id="lastPageBtn" href="#" class="tablePagesBtn"><i
+					class="fa fa-angle-double-right"></i> </a>
+			</div>
+			<!--    End of Table Pages Controls   -->
+
+		</div>
+		<div class="importCardArea">
+			<div id="testCard" class="importCardBox">
+				<div class="importOption">
+					<div class="importLabel txtBold txt24 txtWhite ">Import from
+						Excell Sheet</div>
+					<a href="#" class="importBtn txtBold txt12 txtGrey1">Choose a
+						file</a>
+					<div class="importDescription txtRegular txt14 txtWhite">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
+						numquam voluptatem facilis accusantium obcaecati sit vel,
+						laudantium nobis suscipit consectetur. Eos aliquid atque, dolorem
+						doloremque obcaecati sapiente deleniti, quo rerum.
+						<ol>
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing
+								elit.</li>
+							<li>Nisi maxime obcaecati nam ullam amet, facilis voluptates</li>
+							<li>hic sed debitis eaque veritatis deserunt facere,</li>
+							<li>consequuntur aliquid sunt quaerat esse commodi
+								assumenda!</li>
+							<li>hic sed debitis eaque veritatis deserunt facere,</li>
+						</ol>
+					</div>
+				</div>
+				<div class="importOption">
+					<div class="importLabel txtBold txt24 txtWhite">Import from
+						LinkedIn</div>
+					<a href="#" class="importBtn txtBold txt12 txtGrey1">Import</a>
+					<div class="importDescription txtRegular txt14 txtWhite">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
+						numquam voluptatem facilis accusantium obcaecati sit vel,
+						laudantium nobis suscipit consectetur. Eos aliquid atque, dolorem
+						doloremque obcaecati sapiente deleniti, quo rerum.
+						<ol>
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing
+								elit.</li>
+							<li>Nisi maxime obcaecati nam ullam amet, facilis voluptates</li>
+							<li>hic sed debitis eaque veritatis deserunt facere,</li>
+							<li>consequuntur aliquid sunt quaerat esse commodi
+								assumenda!</li>
+							<li>hic sed debitis eaque veritatis deserunt facere,</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--   *********
+    END OF CONTENT 
+    ************* -->
+
+	<!--   *********
+    START OF FOOTER 
+    ************* -->
+
+	<footer>
+		<!--   Footer Warapper - 1150 px width   -->
+		<div class="footer-wrapper">
+			<!--     Footer Logo      -->
+			<a href="home.html" class="footerLogo"> <img
+				src="../resources/images/findon-logo-white.png" alt="Footer Logo" />
+			</a>
+		</div>
+	</footer>
+
+	<!--   *********
+    END OF FOOTER 
+    ************* -->
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.SocialNetworksTypes" table="social_networks_types" catalog="edexer_edexer">
+        <id name="snTypeId" type="java.lang.Integer">
+            <column name="sn_type_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" />
+        </property>
+        <property name="desc" type="string">
+            <column name="desc" length="45" />
+        </property>
+        <set name="socialNetworks" table="social_network" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="type" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.SocialNetwork" />
+        </set>
+    </class>
+</hibernate-mapping>

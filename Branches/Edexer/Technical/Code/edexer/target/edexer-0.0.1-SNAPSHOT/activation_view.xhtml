@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:loadBundle basename="settings" var="settings" />
+<h:head>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/images/findon-icon.ico" />
+
+	<h:outputStylesheet library="css" name="normalize.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="prime_customizations.css" />
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/font-awesome.css" />
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/fonts/lato.css" />
+	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="prime_customizations.js" />
+	<title><ui:insert name="title">FindOn Activation Page</ui:insert></title>
+</h:head>
+<f:metadata>
+	<f:viewParam name="activation" value="#{activationManagedBean.activationStr}" />
+	<f:viewParam name="userid" value="#{activationManagedBean.userID}" />
+</f:metadata>
+<h:body>
+	<div class="header-wrapper">
+		<!--      Logo            -->
+		<a href="#{request.contextPath}/index.xhtml" class="headerLogo">
+			<h:graphicImage value="/resources/images/findon-logo.png"
+				alt="FindOn Logo" />
+		</a>
+	</div>
+	
+	<div id="content" class="homeContainer">
+		<h2>Activation Account Status</h2>
+		<p:outputPanel styleClass="outputPanel main-content">
+			<h:form>
+				<h:outputText
+					value="Congrats !! you have alreadey Activated your find on account... "
+					style="font-size:20px;" />
+					<a href="#{request.contextPath}/user/index.xhtml"
+											class="forgot-pass">Go To Home</a>
+			</h:form>
+		</p:outputPanel>
+	</div>
+</h:body>
+</h:html>

@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:define name="title">Edexer - Management</ui:define>
+
+</h:head>
+<f:loadBundle basename="settings" var="settings" />
+
+<ui:composition template="/templates/common/commonLayout.xhtml">
+	<f:loadBundle basename="settings" var="bundle" />
+	<ui:define name="content">
+		<div class="content-wrapper">
+
+			<h:form id="form1">
+				<p:growl id="messages" />
+			</h:form>
+
+			<h:form id="main">
+				<p:growl autoUpdate="true" />
+
+				<aside class="left-side">
+				<h2>Options</h2>
+
+				<ul class="setting-tabs-titles">
+					<li><p:commandLink styleClass="settingsTitle"
+							actionListener="#{userHomeManagedBean.viewMyProfileStats}"
+							update=":#{p:component('mainPanel')}" ajax="true">
+							<i class=" fa fa-line-chart"></i>Statistics
+						</p:commandLink></li>
+					<li><p:commandLink styleClass="settingsTitle"
+							actionListener="#{userHomeManagedBean.viewTags}"
+							icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+							ajax="true">
+							<i class=" fa fa-tags"></i>Tags
+							</p:commandLink></li>
+
+					<li><p:commandLink styleClass="settingsTitle"
+							actionListener="#{userHomeManagedBean.viewReports}"
+							icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+							ajax="true">
+							<i class="fa fa-bar-chart-o"></i>Reports
+							</p:commandLink></li>
+				</ul>
+				</aside>
+			</h:form>
+
+			<aside class="main-content"> <p:outputPanel id="mainPanel"
+				style="display:block">
+
+				<!-- user info panel form -->
+				<h:panelGroup id="userInfo"
+					rendered="#{userHomeManagedBean.showProfileStats}">
+					<h:form class="settingsFormArea cont1">
+
+						<ul class="left-side-settings">
+
+							<li><p:outputLabel
+									value="You are on free personal subscription"
+									rendered="#{utilitiesManagesBean.userInSessionPersonalSubsctiption.id.subType==utilitiesManagesBean.subscriptionTypeFreeKey}" />
+								<p:outputLabel
+									value="You are on professional personal subscription"
+									rendered="#{utilitiesManagesBean.userInSessionPersonalSubsctiption.id.subType==utilitiesManagesBean.subscriptionTypeProKey}" />
+							</li>
+						</ul>
+						<c:choose>
+							<c:when test="#{userHomeManagedBean.shouldShowUpgradeBtn() == 1}">
+								<ul class="form-buttons-wrapper">
+									<li><p:commandLink value="upgrade to Pro"
+											styleClass="greenBtnSettings" action="pro_upgrade" /></li>
+								</ul>
+							</c:when>
+							<c:otherwise>
+
+							</c:otherwise>
+						</c:choose>
+
+					</h:form>
+				</h:panelGroup>
+
+				<!-- tages panel form -->
+				<h:panelGroup id="tagsMgmt"
+					rendered="#{userHomeManagedBean.showTags}">
+
+					<ul class="left-side-settings">
+						<h:form id="newTag">
+							<p:focus context="newTag" for="tagfield" />
+							<li><p:inputText id="tagfield"
+									value="#{userHomeManagedBean.newTagValue}"
+									placeholder="Tag value" required="true" size="50" /></li>
+							<li><p:commandLink value="add" styleClass="greenBtnSettings"
+									actionListener="#{userHomeManagedBean.addTag}"
+									update=":#{p:component('tagsList')},tagfield" ajax="true">
+									<f:attribute name="subscriptionType"
+										value="#{bundle.SUBSCRIPTION_TYPE_FREE}"></f:attribute>
+								</p:commandLink></li>
+
+						</h:form>
+						<li><h:form id="tagListForm">
+								<p:dataTable var="tag"
+									value="#{userHomeManagedBean.personalUserTags}"
+									rowIndexVar="rowId" id="tagsList" editable="true"
+									editMode="cell">
+
+									<!-- <p:ajax event="rowEdit"
+								listener="#{userHomeManagedBean.onTagRowEdit}"
+								update=":#{p:component('tagsList')}">
+							</p:ajax> -->
+
+									<p:ajax event="cellEdit"
+										listener="#{userHomeManagedBean.onTagCellEdit( rowId, bundle.SUBSCRIPTION_TYPE_FREE, tag.tagName)}"
+										update=":#{p:component('tagsList')}">
+									</p:ajax>
+
+									<p:column headerText="Current Tags" styleClass=""
+										style="width:150px">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tag.tagName}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{tag.tagName}" style="width:100%" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+
+
+									<p:column headerText="Actions" style="width:32px">
+										<!-- <p:rowEditor /> -->
+										<p:commandLink icon="ui-icon-close"
+											actionListener="#{userHomeManagedBean.deleteTag}" ajax="true"
+											update=":#{p:component('tagsList')}">
+											<f:attribute name="tagObj" value="#{tag}" />
+											<f:attribute name="rowId" value="#{rowId}" />
+											<f:attribute name="subscriptionType"
+												value="#{bundle.SUBSCRIPTION_TYPE_FREE}"></f:attribute>
+											<i class=" fa fa-close"></i>
+										</p:commandLink>
+									</p:column>
+
+								</p:dataTable>
+							</h:form></li>
+
+
+					</ul>
+
+
+
+
+				</h:panelGroup>
+
+
+
+				<!-- reporting form -->
+				<h:panelGroup id="reports"
+					rendered="#{userHomeManagedBean.showReports}">
+					<h:form id="reportsForm">
+						<ul class="left-side-settings">
+							<li><p:outputLabel>Country</p:outputLabel> <p:selectOneMenu
+									styleClass="ui-select-control ui-selectonemenu-size-wide"
+									value="#{reportingManagedBean.reportCountry}"
+									converter="contriesConverter">
+									<f:selectItem itemLabel="None" />
+									<f:selectItems value="#{utilitiesManagesBean.listCountries()}"
+										var="country" itemLabel="#{country.countryName}"
+										itemValue="#{country}" />
+								</p:selectOneMenu></li>
+							<li><p:outputLabel>Sector</p:outputLabel> <p:selectOneMenu
+									styleClass="ui-select-control ui-selectonemenu-size-wide"
+									value="#{reportingManagedBean.reportSector}"
+									converter="sectorConverter">
+									<f:selectItem itemLabel="None" />
+									<f:selectItems
+										value="#{utilitiesManagesBean.lookupsService.sectorList}"
+										var="sector" itemLabel="#{sector.sectorName}"
+										itemValue="#{sector}" />
+								</p:selectOneMenu></li>
+							<li><p:dialog modal="true" widgetVar="statusDialog"
+									header="Status" draggable="false" closable="false"
+									resizable="false">
+									<h:graphicImage value="/resources/images/ajaxloadingbar.gif"
+										alt="Loading..." />
+								</p:dialog> <p:commandLink value="Run Report" ajax="false"
+									styleClass="greenBtnSettings"
+									onclick="PrimeFaces.monitorDownload(start, stop);"
+									icon="ui-icon-arrowthick-1-s">
+									<p:fileDownload value="#{reportingManagedBean.report}" />
+									<f:param name="subType" value="1" />
+									<p:ajax update=":form1:messages" />
+								</p:commandLink></li>
+						</ul>
+
+					</h:form>
+					<script type="text/javascript">
+						function start() {
+						    PF('statusDialog').show();
+						}
+						 
+						function stop() {
+						    PF('statusDialog').hide();
+						}
+					</script>
+
+				</h:panelGroup>
+
+
+			</p:outputPanel> </aside>
+			<div class="clearFix"></div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

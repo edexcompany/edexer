@@ -1,0 +1,816 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/templates/common/commonLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<f:loadBundle basename="settings" var="bundle" />
+	<f:loadBundle basename="lang" var="lang" />
+
+	<h:head>
+	</h:head>
+	<f:metadata>
+		<f:viewParam name="keyword"
+			value="#{businessCardsIndexManagedBean.filterKeyword}" />
+		<f:viewAction action="#{businessCardsIndexManagedBean.init}" />
+	</f:metadata>
+	<ui:define name="title">FindOn - Home</ui:define>
+
+
+
+	<!-- 	<p:growl showDetail="true" showSummary="true" autoUpdate="true" -->
+	<!-- 		widgetVar="growlGlobal" id="growlGlobal" /> -->
+	<ui:define name="content">
+		<div class="homeContainer">
+			<h:form id="filterForm">
+
+				<p:focus context="filterForm" />
+				<div class="filterArea">
+					<ul class="left-filter-section">
+						<li><p:outputLabel value="Keyword" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterKeyword}" /></li>
+						<li><p:outputLabel value="First Name" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterFirstName}" /></li>
+						<li><p:outputLabel value="Last Name" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterLlastName}" /></li>
+						<li><p:outputLabel value="Company" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterCompany}" /></li>
+						<li><p:outputLabel value="Sector" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterSector}" /></li>
+						<li><p:outputLabel value="Title" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterTitle}" /></li>
+
+
+					</ul>
+
+					<ul class="right-filter-section">
+						<li><p:outputLabel value="Email" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterEmail}" /></li>
+						<li><p:outputLabel value="Mobile" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterMobile}" /></li>
+						<li><p:outputLabel value="Country" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterCountry}" /></li>
+						<li><p:outputLabel value="State" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterState}" /></li>
+						<li><p:outputLabel value="City" /> <p:inputText
+								value="#{businessCardsIndexManagedBean.filterCity}" /></li>
+						<li><p:outputLabel value="Tags" /> <p:autoComplete id="tags"
+								multiple="true"
+								value="#{businessCardsIndexManagedBean.selectedTags}"
+								completeMethod="#{businessCardsIndexManagedBean.getTagsList}"
+								var="tagVar" itemLabel="#{tagVar.tagName}" itemValue="#{tagVar}"
+								converter="tagConverter">
+								<p:ajax event="itemSelect"
+									listener="#{businessCardsIndexManagedBean.handleTagSelect}" />
+								<p:ajax event="itemUnselect"
+									listener="#{businessCardsIndexManagedBean.handleTagUnselect}" />
+							</p:autoComplete></li>
+
+					</ul>
+					<ul class="right-filter-section">
+						<li><h:outputText value="Subscriptions" /></li>
+						<li><h:outputLabel value="FindOn" for="findonFlag" /> <p:selectBooleanCheckbox
+								label="FindOn" id="findonFlag"
+								value="#{businessCardsIndexManagedBean.filterFindOnContactsRetrieve}" /></li>
+						<li><h:outputLabel value="Personal" for="personalFlag" /> <p:selectBooleanCheckbox
+								label="Personal" id="personalFlag"
+								value="#{businessCardsIndexManagedBean.filterPersonalContactsRetrieve}" /></li>
+						<li><h:outputLabel
+								rendered="#{businessCardCreationManagedBean.hasCorpSubscription()}"
+								value="Corporate" for="corpflag" /> <p:selectBooleanCheckbox
+								label="Corporate" id="corpflag"
+								rendered="#{businessCardCreationManagedBean.hasCorpSubscription()}"
+								value="#{businessCardsIndexManagedBean.filterCorpContactsRetrieve}" /></li>
+
+						<li><p:outputLabel value="Order By" /> <p:selectOneMenu
+								value="#{businessCardsIndexManagedBean.filterSelectByField}">
+								<f:selectItem itemLabel="Select one" />
+								<f:selectItem itemValue="0" itemLabel="First Name" />
+								<f:selectItem itemValue="1" itemLabel="Last Name" />
+								<f:selectItem itemValue="2" itemLabel="Title" />
+								<f:selectItem itemValue="3" itemLabel="Company" />
+								<f:selectItem itemValue="4" itemLabel="Sector" />
+								<f:selectItem itemValue="5" itemLabel="Email" />
+								<f:selectItem itemValue="6" itemLabel="Mobile" />
+								<f:selectItem itemValue="7" itemLabel="Address" />
+							</p:selectOneMenu> <p:selectOneMenu
+								value="#{businessCardsIndexManagedBean.filterSelectByDir}">
+								<f:selectItem itemValue="1" itemLabel="Ascending" />
+								<f:selectItem itemValue="2" itemLabel="Descending" />
+							</p:selectOneMenu></li>
+					</ul>
+
+					<div class="filterControls ">
+						<a id="closeAdvancedSearch" href="#" class="greenBtn">Close</a>
+						<h:commandLink value="Reset" id="cancelFilter" class="greenBtn"
+							actionListener="#{businessCardsIndexManagedBean.resetFilterAction()}"
+							update="bcDataGrid,tableArea" />
+						<h:commandLink value="Filter" id="Filter" class="greenBtn"
+							action="#{businessCardsIndexManagedBean.updteFilterAction}"
+							update="bcDataGrid,tableArea" />
+					</div>
+				</div>
+
+
+
+
+				<p:outputPanel id="homeControls" styleClass="homeControls">
+					<p:commandLink id="addCard" value="Add Card"
+						disabled="#{activationManagedBean.chkActivation}"
+						styleClass="greenBtn"
+						action="#{businessCardsIndexManagedBean.goToAddCard()}" />
+					<p:tooltip id="toolTipAddCard" for="addCard"
+						rendered="#{activationManagedBean.chkActivation}"
+						value="Please activate your account first" />
+
+					<p:commandLink id="importCardBtn" value="Import"
+						disabled="#{activationManagedBean.chkActivation}"
+						styleClass="greenBtn" onclick="PF('importDialog').show();" />
+					<p:tooltip id="toolTipImport" for="importCardBtn"
+						rendered="#{activationManagedBean.chkActivation}"
+						value="Please activate your account first" />
+
+					<!-- TEST SEND SMS  -->
+
+					<p:commandLink id="sendsms" value="Send SMS" styleClass="greenBtn"
+						oncomplete="PF('sms').show()"
+						disabled="#{sendSmsManagedBean.disableSendSms()}">
+					</p:commandLink>
+					<p:tooltip id="toolTipsendsms" for="sendsms" 
+						rendered="#{businessCardsIndexManagedBean.enabletoolTips}"
+						value="Select business cards to Send SMS" />
+					<p:dialog header="Send SMS" widgetVar="sms" showEffect="fade"
+						closeOnEscape="true" minimizable="true" maximizable="true"
+						hideEffect="blind" width="600" height="500"
+						styleClass="mailDialogue">
+
+						<ul>
+							<li><h:outputText id="smssubject" value="Subject" /></li>
+							<li><p:inputText id="smssub"
+									style="border:1px;border-color:black"
+									value="#{sendSmsManagedBean.subject}" /></li>
+							<li><h:outputText id="smsbody" value="Body" /></li>
+							<li><p:editor id="smstxtEditor" widgetVar="editorWidget"
+									value="#{sendSmsManagedBean.body}"
+									style="height:auto;width:inherit" /></li>
+							<li><p:commandLink value="Send" icon="ui-icon-disk"
+									oncomplete="PF('sms').hide()"
+									actionListener="#{sendSmsManagedBean.sendSms()}"
+									styleClass="greenBtn">
+								</p:commandLink> <p:commandLink value="Clear" type="button"
+									styleClass="greenBtn" action="#{sendSmsManagedBean.Clear()}">
+									<p:ajax update="smssub" />
+									<p:ajax update="smstxtEditor" />
+								</p:commandLink></li>
+						</ul>
+
+					</p:dialog>
+
+					<!--END OF TEST   -->
+
+					<!-- <p:commandButton actionListener="#{notifyManagedBean.send()}"
+						value="Send"></p:commandButton> -->
+					<p:growl widgetVar="importGrowl" sticky="true" />
+					<p:socket onMessage="handleMessage" channel="/notify">
+					</p:socket>
+
+					<script type="text/javascript">
+						function handleMessage(facesmessage) {
+							facesmessage.severity = 'info';
+
+							PF('importGrowl').show([ facesmessage ]);
+						}
+					</script>
+
+
+
+					<p:commandLink id="exportBtn" ajax="false" value="Export"
+						styleClass="greenBtn"
+						disabled="#{businessCardsIndexManagedBean.disapleBtns}">
+						<p:fileDownload
+							value="#{businessCardExportManagedBean.exportBusinessCard()}" />
+					</p:commandLink>
+					<p:tooltip id="toolTipExport" for="exportBtn"
+						rendered="#{businessCardsIndexManagedBean.enabletoolTips}"
+						value="Select business cards to export" />
+					<p:commandLink value="Send Email" styleClass="greenBtn"
+						oncomplete="PF('dlg').show()" id="sendEmailBtn"
+						disabled="#{mailConfigManagedBean.disableSendEmail()}"
+						actionListener="#{mailConfigManagedBean.isMaiConfigExist}" />
+					<p:tooltip id="toolTipSendMail" for="sendEmailBtn"
+						rendered="#{!mailConfigManagedBean.selectionExist}"
+						value="Select business cards to send email" />
+					<p:tooltip id="toolTipSendMail2" for="sendEmailBtn"
+						rendered="#{!mailConfigManagedBean.configured}"
+						value="Configure your bulk mail settings from user settings page to enable sending" />
+						
+						
+						
+					<p:commandLink id="deleteBulkBC" value="Delete Selected"
+						disabled="#{businessCardsIndexManagedBean.disapleBtns}"
+						styleClass="greenBtn">
+						<i class="fa fa-remove"></i>
+						<p:confirm header="Confirmation"
+							message="Are you sure you want to delete selected business cards?"
+							icon="ui-icon-alert" />
+						<p:ajax
+							listener="#{businessCardsIndexManagedBean.deleteBulkBusinessCard()}"
+							update=":filterForm:bcTable,:filterForm:bcDataGrid,:filterForm:selectedCoundLabelId,:filterForm:filteredCoundLabelId,:filterForm:exportBtn,:filterForm:toolTipExport,:filterForm:deleteBulkBC,:filterForm:toolTipDeleteBulk">
+
+						</p:ajax>
+					</p:commandLink>
+					<p:tooltip id="toolTipDeleteBulk" for="deleteBulkBC"
+						rendered="#{businessCardsIndexManagedBean.enabletoolTips}"
+						value="Select business cards to Delete" />						
+						
+					<p:notificationBar position="top" styleClass="top" widgetVar="bar"
+						style="z-index:100;height:70px"
+						autoDisplay="#{activationManagedBean.chkActivation}">
+						<h:outputText
+							value="Please Activate Your Find On Account By Click The Link That had Sent to Your Email...To Resend Activation Code Click Here "
+							style="font-size:18px;" />
+						<p:commandLink value="Resend" styleClass="greenBtn">
+							<p:ajax listener="#{activationManagedBean.sendActivationStr()}"></p:ajax>
+						</p:commandLink>
+						<p:commandLink value="Hide" styleClass="greenBtn"
+							onclick="PF('bar').hide()">
+						</p:commandLink>
+					</p:notificationBar>
+
+					<!-- Dialog Send Email -->
+
+					<p:dialog header="Send Email" widgetVar="dlg" showEffect="fade"
+						closeOnEscape="true" minimizable="true" maximizable="true"
+						hideEffect="blind" width="800" height="500" id="mailDialogue"
+						styleClass="mailDialogue"
+						rendered="#{mailConfigManagedBean.showSendEmailDlg()}">
+						<p:growl id="growSentFinish" showDetail="true" />
+						<ul>
+							<li><h:outputText id="subject" value="Subject" /></li>
+							<li><p:inputText id="txtsub"
+									style="border:1px;border-color:black"
+									value="#{sendEmailManagedBean.subject}" /></li>
+							<li><h:outputText id="body" value="Body" /></li>
+							<li><p:editor id="txtEditor" widgetVar="editorWidget"
+									value="#{sendEmailManagedBean.body}"
+									style="height:auto;width:inherit" /></li>
+							<li><p:commandLink value="Send" icon="ui-icon-disk"
+									oncomplete="PF('dlg').hide()"
+									actionListener="#{sendEmailManagedBean.sendEmail()}"
+									styleClass="greenBtn">
+								</p:commandLink> <p:commandLink value="Clear" type="button"
+									styleClass="greenBtn" action="#{sendEmailManagedBean.Clear()}">
+									<!-- 								<p:ajax event="dialogReturn" -->
+									<!-- 									listener="#{sendEmailManagedBean.onEmailSent()}" -->
+									<!-- 									update="growSentFinish" /> -->
+									<p:ajax update="txtsub" />
+									<p:ajax update="txtEditor" />
+								</p:commandLink></li>
+						</ul>
+
+					</p:dialog>
+				</p:outputPanel>
+
+				<p:outputPanel id="tableArea" styleClass="tableArea"
+					style="layout:block">
+
+					<!--    Table Controls   -->
+					<div class="tableControlsContainer">
+						<p class="filterResult">
+							<span><p:outputLabel id="filteredCoundLabelId"
+									value="#{businessCardsIndexManagedBean.rowCount}" /></span> card
+							filtered
+						</p>
+
+
+						<p class="filterResult">
+							<span><p:outputLabel id="selectedCoundLabelId"
+									value="#{businessCardsIndexManagedBean.selectedCardList.size()}" /></span>
+							card(s) selected
+						</p>
+						<p class="filterResult" style="width: 5%">
+							<p:commandLink value="All" ajax="true">
+								<p:ajax 
+									update=":filterForm:bcDataGrid,:filterForm:bcTable,:filterForm:selectedCoundLabelId,:filterForm:sendsms,:filterForm:exportBtn,:filterForm:sendEmailBtn,:filterForm:deleteBulkBC"
+									listener="#{businessCardsIndexManagedBean.checkAll()}" />
+							</p:commandLink>
+						</p>
+						<p class="selectResult" style="width: 5%">
+							<p:commandLink value="None">
+								<p:ajax 
+									update=":filterForm:bcDataGrid,:filterForm:bcTable,:filterForm:selectedCoundLabelId,:filterForm:sendsms,:filterForm:exportBtn,:filterForm:sendEmailBtn,:filterForm:deleteBulkBC,:filterForm:toolTipsendsms,:filterForm:toolTipDeleteBulk,:filterForm:toolTipExport"
+									listener="#{businessCardsIndexManagedBean.nonCheckAll()}" />
+							</p:commandLink>
+						</p>
+
+						<p:commandLink id="listView"
+							actionListener="#{businessCardsIndexManagedBean.toggleView(true)}"
+							update="dataPanel" onclick="clickTableControl('listView')"
+							styleClass="leftCurved tableControls tableControls-normal">
+							<i class="fa fa-list"></i>
+						</p:commandLink>
+						<p:commandLink id="cardView"
+							actionListener="#{businessCardsIndexManagedBean.toggleView(false)}"
+							update="dataPanel" onclick="clickTableControl('cardView')"
+							styleClass="rightCurved tableControls tableControls-normal tableControls-clicked">
+							<i class="fa fa-th-large"></i>
+						</p:commandLink>
+					</div>
+
+					<p:outputPanel style="display: inline-block" id="dataPanel">
+
+
+
+
+						<p:outputPanel style="display: inline-block"
+							rendered="#{businessCardsIndexManagedBean.switchTableGridView}">
+							<p:dataTable var="bc" paginatorPosition="bottom"
+								styleClass="bcDataTable"
+								value="#{businessCardsIndexManagedBean.bcLazyModel}"
+								paginator="true" rows="10"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="9,15,60" id="bcTable"
+								rowKey="#{bc.businessCardId}" rowIndexVar="#{bc.businessCardId}"
+								lazy="true">
+								<p:column width="30">
+
+									<script>
+								$
+										.ajax(
+												{
+													url : "#{request.contextPath}/selectioncheck/#{bc.businessCardId}",
+													context : document.body
+												})
+										.done(
+												function(flag) {
+													if (flag == "true") {
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.addClass(
+																		'cardBoxChecked2');
+	
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.find(
+																		'.card-check-box1')
+																.prop(
+																		'checked',
+																		true);
+														//alert($(document.getElementById("#{bc.businessCardId}")).find('div.checkCard').children().prop('checked'));
+													} else {
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.find(
+																		'div.checkCard')
+																.children()
+																.prop(
+																		'checked',
+																		false);
+													}
+												});
+							</script>
+									<div id="#{bc.businessCardId}">
+										<h:selectBooleanCheckbox styleClass="card-check-box1"
+											id="check-#{bc.businessCardId}"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}"
+											value="#{businessCardsIndexManagedBean.selectionStat}">
+											<p:ajax event="change"
+												update=":filterForm:selectedCoundLabelId,:filterForm:homeControls,:filterForm:sendsms,:filterForm:exportBtn,:filterForm:sendEmailBtn,:filterForm:deleteBulkBC,:filterForm:toolTipsendsms,:filterForm:toolTipDeleteBulk,:filterForm:toolTipExport"
+												listener="#{businessCardsIndexManagedBean.loadSelectedBusinessCardListener(bc.businessCardId)}" />
+										</h:selectBooleanCheckbox>
+									</div>
+								</p:column>
+								<p:column headerText="Name">
+									<h:outputText value="#{bc.bcFirstName} #{bc.bcLastName}" />
+								</p:column>
+								<p:column headerText="Title">
+									<h:outputText
+										value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,2)}" />
+								</p:column>
+								<p:column headerText="Company">
+									<h:outputText
+										value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,3)}" />
+								</p:column>
+								<p:column headerText="Email">
+									<h:outputText
+										value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,4)}"
+										rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}" />
+								</p:column>
+								<p:column headerText="Mobile">
+									<h:outputText
+										value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,1)}"
+										rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}" />
+								</p:column>
+								<p:column headerText="Type">
+									<h:outputLabel styleClass="cardLabel txtGrey1"
+										rendered="#{bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeCorpKey}">
+										<i class="fa fa-tag"></i>Corporate</h:outputLabel>
+									<h:outputLabel styleClass="cardLabel txtGrey1"
+										rendered="#{(bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null)}">
+										<i class="fa fa-tag"></i>Find On</h:outputLabel>
+									<h:outputLabel
+										styleClass="cardLabel txtGrey1 cardLabel-datatable"
+										rendered="#{(bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeFreeKey) or (bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeProKey)}">
+										<i class="fa fa-tag">Personal</i>
+									</h:outputLabel>
+								</p:column>
+								<p:column headerText="Actions">
+
+									<!--   Card Options    -->
+									<div>
+
+										<p:commandLink update=":filterForm:bcRequest"
+											rendered="#{((bc.userSubscription.id.subType == null) and (bc.userSubscription.id.userId == null) and (businessCardsIndexManagedBean.retIsProtectedOrNot(bc.creator)))}"
+											styleClass="editCard  txt16"
+											oncomplete="PF('bcRequest').show()"
+											title="Business Card Request">
+											<h:outputText styleClass="fa fa-envelope" />
+											<f:setPropertyActionListener
+												target="#{businessCardsIndexManagedBean.selectedBusinessCard}"
+												value="#{bc}"></f:setPropertyActionListener>
+										</p:commandLink>
+										<p:commandLink update=":filterForm:bcDetail"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null)) or (businessCardsIndexManagedBean.retIsPublicOrNot(bc.creator))}"
+											styleClass="showCard txt16"
+											oncomplete="PF('bcDialog').show()" title="View Detail">
+											<h:outputText styleClass="fa fa-eye" />
+											<f:setPropertyActionListener value="#{bc}"
+												target="#{businessCardsIndexManagedBean.selectedBusinessCard}" />
+										</p:commandLink>
+
+										<h:link styleClass="editCard txt16"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}"
+											outcome="businesscard_details.xhtml">
+											<i class="fa fa-edit"></i>
+											<f:param value="#{bc.businessCardId}" name="id" />
+										</h:link>
+
+
+
+										<p:commandLink styleClass="removeCard  txt16" ajax="true"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}">
+											<i class="fa fa-remove"></i>
+											<p:confirm header="Confirmation"
+												message="Are you sure you want to delete this business card?"
+												icon="ui-icon-alert" />
+											<p:ajax
+												listener="#{businessCardsIndexManagedBean.deleteBusinessCard(bc.businessCardId)}"
+												update=":filterForm:bcTable,:filterForm:selectedCoundLabelId,:filterForm:filteredCoundLabelId">
+												<f:setPropertyActionListener value="#{bc}"
+													target="#{businessCardsIndexManagedBean.selectedBusinessCard}" />
+											</p:ajax>
+
+										</p:commandLink>
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="fade">
+											<p:commandButton value="Yes" type="button"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											<p:commandButton value="No" type="button"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+										</p:confirmDialog>
+
+
+
+
+									</div>
+								</p:column>
+							</p:dataTable>
+
+						</p:outputPanel>
+
+
+						<p:outputPanel style="display: inline-block"
+							rendered="#{!businessCardsIndexManagedBean.switchTableGridView}">
+
+							<p:dataGrid id="bcDataGrid" var="bc"
+								value="#{businessCardsIndexManagedBean.bcLazyModel}" columns="3"
+								layout="grid" rows="9" paginator="true" lazy="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="9,15,60" paginatorPosition="bottom">
+
+
+								<div class="cardBox" id="#{bc.businessCardId}">
+									<!--   Contact Card Picture    -->
+									<div class="conPic">
+										<img
+											src="#{request.contextPath}/imagesPath/#{bc.businessCardId}/#{bc.avatar}" />
+									</div>
+
+									<!--   Contact Details    -->
+									<div class="conDetails">
+										<div class="conName txtBold  txtGreen2">
+											<h:outputText value="#{bc.bcFirstName} #{bc.bcLastName}" />
+										</div>
+
+										<div class="conPosition txtRegular txt16 txtGrey1">
+											<h:outputText
+												value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,2)}" />
+										</div>
+										<div class="conCompany txtRegular txt16 txtGrey1">
+											<h:outputText
+												value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,3)}" />
+										</div>
+										<div class="conEmail txtRegular txt16 txtGrey1">
+											<h:outputText
+												value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,4)}"
+												rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}" />
+										</div>
+										<div class="conMobile txtRegular txt16 txtGrey1">
+											<h:outputText
+												value="#{businessCardsIndexManagedBean.setToList(bc.businessCardId,1)}"
+												rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}" />
+										</div>
+									</div>
+
+									<div class="checkCard">
+										<h:selectBooleanCheckbox styleClass="card-check-box"
+											id="check-#{bc.businessCardId}"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}"
+											onclick="handleStyle(this.id)"
+											value="#{businessCardsIndexManagedBean.selectionStat}">
+											<p:ajax event="change"
+												update=":filterForm:selectedCoundLabelId,:filterForm:homeControls,:filterForm:sendsms,:filterForm:exportBtn,:filterForm:sendEmailBtn,:filterForm:deleteBulkBC,:filterForm:toolTipsendsms,:filterForm:toolTipDeleteBulk,:filterForm:toolTipExport"
+												listener="#{businessCardsIndexManagedBean.loadSelectedBusinessCardListener(bc.businessCardId)}" />
+										</h:selectBooleanCheckbox>
+									</div>
+
+
+
+									<!--   Card Options    -->
+									<div class="cardOptions" style="float: right;">
+
+										<p:commandLink update=":filterForm:bcRequest"
+											rendered="#{((bc.userSubscription.id.subType == null) and (bc.userSubscription.id.userId == null) and (businessCardsIndexManagedBean.retIsProtectedOrNot(bc.creator)))}"
+											styleClass="editCard txtWhite txt16"
+											oncomplete="PF('bcRequest').show()"
+											title="Business Card Request">
+											<h:outputText styleClass="fa fa-envelope" />
+											<f:setPropertyActionListener
+												target="#{businessCardsIndexManagedBean.selectedBusinessCard}"
+												value="#{bc}"></f:setPropertyActionListener>
+										</p:commandLink>
+										<p:commandLink update=":filterForm:bcDetail"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null)) or (businessCardsIndexManagedBean.retIsPublicOrNot(bc.creator)) }"
+											styleClass="showCard txtWhite txt16"
+											oncomplete="PF('bcDialog').show()" title="View Detail">
+											<h:outputText styleClass="fa fa-eye" />
+											<f:setPropertyActionListener value="#{bc}"
+												target="#{businessCardsIndexManagedBean.selectedBusinessCard}" />
+										</p:commandLink>
+
+										<h:link styleClass="editCard txtWhite txt16"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}"
+											outcome="businesscard_details.xhtml">
+											<i class="fa fa-edit"></i>
+											<f:param value="#{bc.businessCardId}" name="id" />
+										</h:link>
+
+
+
+										<p:commandLink styleClass="removeCard txtWhite txt16"
+											ajax="true"
+											rendered="#{!((bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null))}">
+											<i class="fa fa-remove"></i>
+											<p:confirm header="Confirmation"
+												message="Are you sure you want to delete this business card?"
+												icon="ui-icon-alert" />
+											<p:ajax
+												listener="#{businessCardsIndexManagedBean.deleteBusinessCard(bc.businessCardId)}"
+												update=":filterForm:bcDataGrid,:filterForm:selectedCoundLabelId,:filterForm:filteredCoundLabelId">
+												<f:setPropertyActionListener value="#{bc}"
+													target="#{businessCardsIndexManagedBean.selectedBusinessCard}" />
+											</p:ajax>
+
+										</p:commandLink>
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="fade">
+											<p:commandButton value="Yes" type="button"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											<p:commandButton value="No" type="button"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+										</p:confirmDialog>
+
+										<h:outputLabel styleClass="cardLabel txtGrey1"
+											rendered="#{bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeCorpKey}">
+											<i class="fa fa-tag"></i>Corporate</h:outputLabel>
+										<h:outputLabel styleClass="cardLabel txtGrey1"
+											rendered="#{(bc.userSubscription.id.subType == null) or (bc.userSubscription.id.userId == null)}">
+											<i class="fa fa-tag"></i>Find On</h:outputLabel>
+										<h:outputLabel styleClass="cardLabel txtGrey1"
+											rendered="#{(bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeFreeKey) or (bc.userSubscription.id.subType == utilitiesManagesBean.subscriptionTypeProKey)}">
+											<i class="fa fa-tag">Personal</i>
+										</h:outputLabel>
+
+
+									</div>
+
+									<!-- Script here  -->
+
+									<script>
+								$
+										.ajax(
+												{
+													url : "#{request.contextPath}/selectioncheck/#{bc.businessCardId}",
+													context : document.body
+												})
+										.done(
+												function(flag) {
+													if (flag == "true") {
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.addClass(
+																		'cardBoxChecked');
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.find(
+																		'div.checkCard')
+																.children()
+																.prop(
+																		'checked',
+																		true);
+														//alert($(document.getElementById("#{bc.businessCardId}")).find('div.checkCard').children().prop('checked'));
+													} else {
+														$(
+																document
+																		.getElementById("#{bc.businessCardId}"))
+																.find(
+																		'div.checkCard')
+																.children()
+																.prop(
+																		'checked',
+																		false);
+													}
+												});
+							</script>
+								</div>
+
+							</p:dataGrid>
+
+						</p:outputPanel>
+
+					</p:outputPanel>
+					<p:dialog header="Business card request" widgetVar="bcRequest"
+						closeOnEscape="true" minimizable="true" maximizable="true"
+						modal="true" showEffect="explode" hideEffect="bounce"
+						resizable="false">
+						<p:outputPanel id="bcRequest"
+							style="text-align:center;width:600px;">
+							<p:outputLabel
+								value="Send business card request to view card data" />
+							<p:inputTextarea id="messageRequest"
+								placeholder="Hi.. can I have your business card please."
+								value="#{bcRequestManagedBean.messageFromIndex}" />
+							<p:commandLink styleClass="greenBtn" value="Send" ajax="true"
+								oncomplete="PF('bcRequest').hide()"
+								action="#{bcRequestManagedBean.sendBcRequest(businessCardsIndexManagedBean.selectedBusinessCard.businessCardId)}" >
+								<p:ajax update="messageRequest" />
+								</p:commandLink>
+							<p:commandLink value="Clear" type="button" styleClass="greenBtn"
+								action="#{bcRequestManagedBean.Clear()}">
+								<p:ajax update="messageRequest" />
+							</p:commandLink>
+						</p:outputPanel>
+					</p:dialog>
+
+
+					<p:dialog header="bc Info" widgetVar="bcDialog" modal="true"
+						showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel id="bcDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty businessCardsIndexManagedBean.selectedBusinessCard}"
+								columnClasses="label,value">
+								<f:facet name="header">
+									<p:graphicImage name="images/avatar.png" width="160" />
+								</f:facet>
+
+								<h:outputText value="Id:" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.selectedBusinessCard.businessCardId}" />
+
+								<h:outputText value="First Name" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.selectedBusinessCard.bcFirstName}" />
+
+								<h:outputText value="Last Name:" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.selectedBusinessCard.bcLastName}" />
+
+								<h:outputText value="Notes" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.selectedBusinessCard.notes}" />
+								<h:outputText value="Title" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.setToList(businessCardsIndexManagedBean.selectedBusinessCard.businessCardId,2)}" />
+								<h:outputText value="Company" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.setToList(businessCardsIndexManagedBean.selectedBusinessCard.businessCardId,3)}" />
+								<h:outputText value="Mobile" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.setToList(businessCardsIndexManagedBean.selectedBusinessCard.businessCardId,1)}" />
+
+								<h:outputText value="Email" />
+								<h:outputText
+									value="#{businessCardsIndexManagedBean.setToList(businessCardsIndexManagedBean.selectedBusinessCard.businessCardId,4)}" />
+
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</p:outputPanel>
+
+
+			</h:form>
+
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+				draggable="false" closable="false" resizable="false">
+				<p:graphicImage value="/resources/images/ajaxloadingbar.gif" />
+			</p:dialog>
+
+			<p:dialog modal="true" widgetVar="importDialog" header="Upload"
+				draggable="false" closable="true" resizable="false">
+				<!-- 				<div class="importCardArea"> -->
+				<div id="testCard" class="importCardBox">
+					<div class="importOption">
+						<div class="importLabel txtBold txt24 txtWhite ">download
+							template to fill</div>
+						<h:form>
+							<p:commandButton value="Download" ajax="false"
+								onclick="PrimeFaces.monitorDownload(start, stop);"
+								style="display: inline-block;width: 130px;height: 35px;margin: 0 5px;border-radius: 60px;border-style: solid;border-color: #86be52;border-width: 3px;background-color: #fff;text-align: center;line-height: 30px;font-size: 12px;font-family: latoBold;color: #52903b;-webkit-transition: 0.3s linear;transition: 0.3s linear;">
+								<p:fileDownload
+									value="#{businessCardImportManagedBean.downloadFile}" />
+							</p:commandButton>
+						</h:form>
+
+
+						<div class="importDescription txtRegular txt14 txtWhite">
+
+							<div class="importLabel txtBold txt24 txtWhite ">Import
+								from Excell Sheet</div>
+
+							<h:form enctype="multipart/form-data">
+								<p:fileUpload
+									fileUploadListener="#{businessCardImportManagedBean.upload}"
+									mode="advanced" allowTypes="/(\.|\/)(xls|xlsx)$/" auto="true"
+									rendered="#{businessCardImportManagedBean.flagForUpload}" />
+
+								<p:outputLabel for="console" value="upload to"
+									rendered="#{businessCardImportManagedBean.flagForSubscriptionChooiceRender}" />
+								<p:selectOneRadio id="console"
+									value="#{businessCardImportManagedBean.subType}"
+									required="true"
+									rendered="#{businessCardImportManagedBean.flagForSubscriptionChooiceRender}">
+									<p:ajax process="@this" update="@form"
+										listener="#{businessCardImportManagedBean.selectRadioItem}" />
+									<f:selectItem itemLabel="personal" itemValue="personal" />
+									<f:selectItem itemLabel="corporate" itemValue="corporate" />
+
+								</p:selectOneRadio>
+							</h:form>
+
+							<ol>
+
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- 				</div> -->
+			</p:dialog>
+
+
+
+
+			<script type="text/javascript">
+				function start() {
+					PF('statusDialog').show();
+				}
+
+				function stop() {
+					PF('statusDialog').hide();
+				}
+
+				function clickTableControl(id){
+					if(id == "listView"){
+						$(document.getElementById("filterForm:listView")).addClass('tableControls-clicked');
+						$(document.getElementById("filterForm:cardView")).removeClass('tableControls-clicked');
+						}
+					else if(id == "cardView"){
+						$(document.getElementById("filterForm:cardView")).addClass('tableControls-clicked');
+						$(document.getElementById("filterForm:listView")).removeClass('tableControls-clicked');
+						}
+					
+				}
+			</script>
+
+		</div>
+	</ui:define>
+</ui:composition>

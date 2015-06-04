@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2015 8:37:22 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.BcRequest" table="bc_request" catalog="edexer">
+        <id name="bcRequestId" type="java.lang.Integer">
+            <column name="bc_request_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bcRequestStatus" class="com.edexer.model.BcRequestStatus" fetch="select">
+            <column name="req_status_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userBySenderUserId" class="com.edexer.model.User" fetch="select">
+            <column name="sender_user_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userByReciverUserId" class="com.edexer.model.User" fetch="select">
+            <column name="reciver_user_id" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="sendDate" type="timestamp">
+            <column name="send_date" length="19" />
+        </property>
+        <property name="message" type="string">
+            <column name="message" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

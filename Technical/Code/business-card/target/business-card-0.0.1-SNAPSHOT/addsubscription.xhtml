@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>{App name} | User Subscriptions</title>
+</h:head>
+<h:body>
+	<h2>Add user subscription</h2>
+
+	<h:form>
+		<p:panel id="add_user_subscription" header="Add user subscription">
+			<h:panelGrid id="register_panel_grid" columns="2" cellpadding="5">
+				<p:outputLabel value="Name" />
+				<p:autoComplete id="ac_username"
+					value="#{subscriptionsManagedBean.userSubscription.userByUserId}"
+					completeMethod="#{subscriptionsManagedBean.completeUserName}" 
+					var="sub"
+					itemLabel="#{sub.firstName}"
+					itemValue="#{sub}"
+								
+					/>
+					
+				<p:outputLabel value="Subscription Type" />
+				<p:selectOneMenu id="sub_type"
+					value="#{subscriptionsManagedBean.subType}" style="width:150px">
+					<f:selectItem itemLabel="Select Subscription Type" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{subscriptionsManagedBean.subTypes}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Act as" />
+				<p:selectOneMenu id="act_as"
+					value="#{subscriptionsManagedBean.actAs}" style="width:150px">
+					<f:selectItem itemLabel="Act As" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{subscriptionsManagedBean.actAses}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Status" />
+				<p:selectOneMenu id="sub_status"
+					value="#{subscriptionsManagedBean.status}" style="width:150px">
+					<f:selectItem itemLabel="Select Status" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{subscriptionsManagedBean.subStatuses}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Notes" />
+				<p:inputTextarea rows="6" cols="33" value="#{subscriptionsManagedBean.userSubscription.note}" />
+				
+				<p:commandButton value="Submit" id="add" actionListener="#{subscriptionsManagedBean.addSubscription()}" ajax="false" />
+				
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

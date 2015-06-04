@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff | Setting</title>
+</h:head>
+<h:body>
+<h:form id="form">
+	<div style="display: inline-block;">
+			<p:menubar style="width:1225px;">
+				<p:submenu label="Users" icon="ui-icon-document">
+					<p:menuitem value="New" url="adduser.xhtml" />
+					<p:menuitem value="Users" url="users.xhtml" />
+				</p:submenu>
+				<p:submenu label="Subscriptions" icon="ui-icon-document">
+					<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+				</p:submenu>
+			
+				<p:submenu label="Settings" icon="ui-icon-document">
+					<p:menuitem value="Setting" url="setting.xhtml" />
+					<p:menuitem value="website Message" url="setWebsiteMessage.xhtml" />
+				</p:submenu>
+				
+			</p:menubar>
+
+		</div>
+		<div style="margin-left: 1238px; margin-top: -60px;">
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+							</p:commandButton>
+		</div>
+	<h1>Settings Configuration</h1>
+	<p:growl id="msgs" showDetail="true" />
+
+	<f:loadBundle basename="settings" var="settingsbundel" />
+	
+		<p:messages id="messages" showDetail="true" showSummary="true"
+			autoUpdate="true" closable="true" />
+
+		<ul>
+			<li><p:outputLabel value="Max Record Count" /> <p:spinner dir="LTR"
+					id="maxRecordCount"
+					value="#{staffSettingsManagedBean.maxRecordState}" /></li>
+			<li><p:outputLabel value="Registration  State  " /> <p:selectOneMenu 
+					id="regState" value="#{staffSettingsManagedBean.registrationState}"
+					style="width:244px" >
+					<f:selectItem itemLabel="Select One" itemValue="-1"  />
+					<f:selectItem itemLabel="CLOSED" itemValue="CLOSED" />
+					<f:selectItem itemLabel="OPENED" itemValue="OPENED" />
+					<f:selectItem itemLabel="INVITATION" itemValue="INVITATION" />
+				</p:selectOneMenu> </li>
+		</ul>
+		<p:commandButton action="#{staffSettingsManagedBean.save()}"
+			value="Save"></p:commandButton>
+
+	</h:form>
+</h:body>
+</html>

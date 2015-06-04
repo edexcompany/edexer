@@ -1,0 +1,361 @@
+body {
+	font-family: latoregular !important;
+}
+
+.border-radius12 {
+	border-radius: 12px !important;
+}
+
+.border-radius20 {
+	border-radius: 20px !important;
+}
+
+ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+a {
+	font-family: latoregular;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #52903b;
+}
+
+.add-v-margin {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.how-to-use {
+	color: #52903b;
+}
+
+header {
+	padding-top: 18px;
+	padding-bottom: 10px;
+	background-color: #ebebeb;
+}
+
+header .form-group {
+	margin-bottom: 5px;
+}
+
+header .form-group  input {
+	height: 30px;
+}
+
+header .checkbox {
+	margin-top: 5px;
+	padding-left: 7px;
+}
+
+.indexHeaderLogo {
+	max-width: 150px;
+	padding-top: 5px;
+}
+
+.indexFooterLogo {
+	max-width: 190px;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]+label span {
+	display: inline-block;
+	width: 13px;
+	height: 11px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	background: url(../images/check-boxes.png) left top no-repeat;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked+label span {
+	background: url(../images/check-boxes.png) left bottom no-repeat;
+}
+
+.forgot-pass {
+	color: #666666;
+}
+
+.banner {
+	background: url("#{resource['images:main-img.jpg']}") center top
+		no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+	padding-bottom: 60px;
+}
+
+.banner-caption {
+	color: #fff;
+	margin-top: 100px;
+}
+
+.banner-caption h2 {
+	font-size: 42px;
+	font-weight: bold;
+	font-family: latoregular;
+}
+
+.banner-caption p {
+	font-size: 20px;
+	font-family: latoregular;
+}
+
+.main-image-overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(134, 190, 82, 0.5);
+}
+
+.form-control {
+	font-family: latoregular;
+}
+
+.f-registration {
+	background-color: rgba(255, 255, 255, 0.4);
+	margin-top: 60px;
+	padding-top: 10px;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-bottom: 40px;
+	color: #666666;
+	font-size: 16px;
+	margin-bottom: 30px;
+	font-family: latoregular;
+}
+
+.f-registration h2 {
+	color: #000000;
+	font-size: 20px;
+	font-weight: bold;
+	/*margin-bottom: 20px;*/
+}
+
+.f-registration .btn {
+	margin-bottom: 12px;
+	font-size: 16px;
+	padding: 8px 20px;
+	margin-top: 5px;
+}
+
+.f-registration .registration-social i {
+	font-size: 34px;
+	color: #868686;
+	vertical-align: middle;
+	margin-left: 6px;
+	-webkit-transition: linear 0.2s;
+	transition: linear 0.2s;
+}
+
+.f-registration .fa-facebook-square:hover {
+	color: #415e9b;
+}
+
+.f-registration .fa-linkedin-square:hover {
+	color: #1482bb;
+}
+
+.how-wrapper {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.how-wrapper h4 {
+	font-size: 34px;
+	font-weight: bold;
+	color: #52903b;
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+
+.how-wrapper ul {
+	list-style: none;
+}
+
+.how-wrapper ul li {
+	font-size: 22px;
+	color: #1a1a1a;
+	padding-left: 36px;
+	position: relative;
+	margin-bottom: 14px;
+}
+
+.how-wrapper ul li i {
+	position: absolute;
+	left: 0;
+	top: 5px;
+	color: #52903b;
+}
+
+.video-screen {
+	position: relative;
+	margin-top: 140px;
+}
+
+.video-screen:after {
+	content: "\f16a";
+	display: inline-block;
+	font-family: FontAwesome;
+	text-rendering: auto;
+	font-size: 100px;
+	color: #b7b7b7;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -80px;
+	margin-left: -50px;
+	cursor: pointer;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;;
+}
+
+.video-screen:hover:after {
+	color: #cc181e;
+}
+
+.testomonials-wrapper {
+	padding-bottom: 60px;
+	padding-top: 60px;
+	background-color: #eaeaea;
+}
+
+.testomonials {
+	position: relative;
+	padding: 0 60px;
+	color: #000000;
+	font-size: 28px;
+	margin-bottom: 110px;
+}
+
+.testomonials:before {
+	content: "\f10d";
+	display: inline-block;
+	font-family: FontAwesome;
+	text-rendering: auto;
+	font-size: 44px;
+	color: #a9c0a2;
+	position: absolute;
+	left: 0;
+	top: -10px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;;
+}
+
+.testomonials:after {
+	content: "\f10e";
+	display: inline-block;
+	font-family: FontAwesome;
+	text-rendering: auto;
+	font-size: 44px;
+	color: #a9c0a2;
+	position: absolute;
+	right: 0;
+	bottom: -20px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;;
+}
+
+.hero-header {
+	background-color: #52903b;
+}
+
+.hero-header h1 {
+	color: #fff;
+	font-size: 46px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.baw-img-container {
+	-webkit-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+	margin-bottom: 20px;
+}
+
+.baw-img-container h5 {
+	color: #52903b;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.baw-img-container:hover {
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+.baw-img-container img {
+	filter:
+		url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	filter: gray;
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	filter: grayscale(100%);
+	-webkit-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.baw-img-container:hover img {
+	-webkit-filter: grayscale(0%);
+	-moz-filter: grayscale(0%);
+	filter: grayscale(0%);
+	border: 6px solid #86be52;
+}
+
+footer {
+	background-color: #86be52;
+	padding: 70px 0;
+}
+
+@media screen and (max-width: 768px) {
+	.baw-img-container:hover {
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+	}
+	.testomonials {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.testomonials p {
+		font-size: 16px;
+	}
+	.testomonials:before {
+		font-size: 22px;
+	}
+	.testomonials:after {
+		font-size: 22px;
+	}
+}
+
+.ui-growl {
+	top: 90px !important;
+}
+
+.login-input {
+	padding-right: 7px !important;
+	padding-left: 7px !important;
+}
+
+.reg-input {
+	height: 35px !important;
+	font-size: 14px !important;
+}
+
+.reg-input-div {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+	max-height: 40px;
+}
+

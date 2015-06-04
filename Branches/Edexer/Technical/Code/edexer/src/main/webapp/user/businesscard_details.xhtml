@@ -1,0 +1,589 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+	<title>{App name} | BusinessCard Details</title>
+</h:head>
+<f:metadata>
+	<f:viewParam name="id" value="#{businessCardDetailsManagedBean.bcId}" />
+	<f:viewAction action="#{businessCardDetailsManagedBean.handleBcId}" />
+</f:metadata>
+
+<ui:composition template="/templates/common/commonLayout.xhtml">
+	<ui:define name="title">Edexer - Details</ui:define>
+	<ui:define name="content">
+		<div class="content-wrapper">
+			<h3>Business Card Details</h3>
+
+
+			<h:form id="form_details">
+				<f:loadBundle var="settings" basename="settings" />
+				<p:messages id="messages" autoUpdate="true" showDetail="true" />
+				<aside class="left-side card-left-side ">
+
+				<ul class="left-side-settings">
+					<li><h:outputLabel value="First Name" /> <p:inplace
+							rendered="#{businessCardDetailsManagedBean.businessCard.bcFirstName.length() > 0}">
+							<p:inputText
+								value="#{businessCardDetailsManagedBean.businessCard.bcFirstName}">
+								<p:ajax update=":form_details:card-name" />
+							</p:inputText>
+						</p:inplace> <p:inputText
+							rendered="#{businessCardDetailsManagedBean.businessCard.bcFirstName.length()==0}"
+							value="#{businessCardDetailsManagedBean.businessCard.bcFirstName}">
+							<p:ajax update=":form_details:card-name" />
+						</p:inputText></li>
+					<li><h:outputLabel value="Last Name" /> <p:inplace
+							rendered="#{businessCardDetailsManagedBean.businessCard.bcLastName.length()>0}">
+							<p:inputText
+								value="#{businessCardDetailsManagedBean.businessCard.bcLastName}">
+								<p:ajax update=":form_details:card-name" />
+							</p:inputText>
+						</p:inplace> <p:inputText
+							rendered="#{businessCardDetailsManagedBean.businessCard.bcLastName.length()==0}"
+							value="#{businessCardDetailsManagedBean.businessCard.bcLastName}">
+							<p:ajax update=":form_details:card-name" />
+						</p:inputText></li>
+
+					<p:outputPanel id="mobilePanel">
+						<c:forEach items="#{businessCardDetailsManagedBean.mobileList}"
+							var="mobile">
+							<li><p:outputLabel value="Mobile" /> <c:choose>
+									<c:when test="#{mobile.id.mobileNum.length() > 0}">
+										<p:inplace>
+											<p:inputText value="#{mobile.id.mobileNum}">
+												<p:ajax update=":form_details:card-mob" />
+											</p:inputText>
+										</p:inplace>
+									</c:when>
+									<c:otherwise>
+										<p:inputText value="#{mobile.id.mobileNum}"></p:inputText>
+									</c:otherwise>
+								</c:choose> <h:commandLink styleClass="fa fa-plus">
+									<p:ajax listener="#{businessCardDetailsManagedBean.addMobile}"
+										update="mobilePanel" />
+								</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+									process="panel0">
+									<p:collector value="#{mobile}"
+										removeFrom="#{businessCardDetailsManagedBean.mobileList}"
+										unique="false" />
+									<p:ajax update="mobilePanel" />
+								</h:commandLink></li>
+						</c:forEach>
+					</p:outputPanel>
+
+					<p:outputPanel id="phonePanel">
+						<c:forEach items="#{businessCardDetailsManagedBean.phoneList}"
+							var="phone">
+							<li><p:outputLabel value="Phone" /> <c:choose>
+									<c:when test="#{phone.id.phoneNum.length() > 0}">
+										<p:inplace>
+											<p:inputText value="#{phone.id.phoneNum}" />
+										</p:inplace>
+									</c:when>
+									<c:otherwise>
+										<p:inputText value="#{phone.id.phoneNum}" />
+									</c:otherwise>
+								</c:choose> <h:commandLink styleClass="fa fa-plus">
+									<p:ajax listener="#{businessCardDetailsManagedBean.addPhone}"
+										update="phonePanel" />
+								</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+									process="panel0">
+									<p:collector value="#{phone}"
+										removeFrom="#{businessCardDetailsManagedBean.phoneList}"
+										unique="false" />
+									<p:ajax update="phonePanel" />
+								</h:commandLink></li>
+						</c:forEach>
+					</p:outputPanel>
+
+					<p:outputPanel id="faxPanel">
+						<c:forEach items="#{businessCardDetailsManagedBean.faxList}"
+							var="fax">
+							<li><p:outputLabel value="Fax" /> <c:choose>
+									<c:when test="#{fax.id.faxNum.length() > 0}">
+										<p:inplace>
+											<p:inputText value="#{fax.id.faxNum}" />
+										</p:inplace>
+									</c:when>
+									<c:otherwise>
+										<p:inputText value="#{fax.id.faxNum}" />
+									</c:otherwise>
+								</c:choose> <h:commandLink styleClass="fa fa-plus">
+									<p:ajax listener="#{businessCardDetailsManagedBean.addFax}"
+										update="faxPanel" />
+								</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+									process="panel0">
+									<p:collector value="#{fax}"
+										removeFrom="#{businessCardDetailsManagedBean.faxList}"
+										unique="false" />
+									<p:ajax update="faxPanel" />
+								</h:commandLink></li>
+						</c:forEach>
+					</p:outputPanel>
+
+					<p:outputPanel id="emailPanel">
+						<c:forEach items="#{businessCardDetailsManagedBean.emailList}"
+							var="email">
+							<li><p:outputLabel value="Email" /> <c:choose>
+									<c:when test="#{email.id.emailAddress.length() > 0}">
+										<p:inplace>
+											<p:inputText value="#{email.id.emailAddress}">
+												<p:ajax update=":form_details:card-email" />
+											</p:inputText>
+										</p:inplace>
+									</c:when>
+									<c:otherwise>
+										<p:inputText value="#{email.id.emailAddress}" />
+									</c:otherwise>
+								</c:choose> <h:commandLink styleClass="fa fa-plus">
+									<p:ajax listener="#{businessCardDetailsManagedBean.addEmail}"
+										update="emailPanel" />
+								</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+									process="panel0">
+									<p:collector value="#{email}"
+										removeFrom="#{businessCardDetailsManagedBean.emailList}"
+										unique="false" />
+									<p:ajax update="emailPanel" />
+								</h:commandLink></li>
+						</c:forEach>
+					</p:outputPanel>
+
+				</ul>
+				<ul class="left-side-settings">
+					<h3>Professional Information</h3>
+					<p:outputPanel id="titlePanel">
+						<c:forEach items="#{businessCardDetailsManagedBean.titleList}"
+							var="title">
+							<c:choose>
+								<c:when
+									test="#{title.company.length() > 0 || title.department.length() > 0 || title.title.length() > 0}">
+									<li><p:outputLabel value="Company" /> <p:inplace
+											rendered="#{title.company.length() > 0}">
+											<p:inputText value="#{title.company}">
+												<p:ajax update=":form_details:card-title-co" />
+											</p:inputText>
+										</p:inplace> <p:inputText value="#{title.company}"
+											rendered="#{title.company.length() == 0}">
+											<p:ajax update=":form_details:card-title-co" />
+										</p:inputText></li>
+									<li><p:outputLabel value="Department" /> <p:inplace
+											rendered="#{title.department.length() > 0}">
+											<p:inputText value="#{title.department}" />
+										</p:inplace> <p:inputText value="#{title.department}"
+											rendered="#{title.department.length() == 0}" /></li>
+									<li><p:outputLabel value="Sector" /> <p:inplace
+											rendered="#{title.sector != null}"
+											label="#{title.sector.sectorName}">
+											<p:selectOneMenu value="#{title.sector}"
+												converter="sectorConverter"
+												styleClass="ui-select-control ui-selectonemenu-size-wide">
+											
+												<f:selectItems value="#{utilitiesManagesBean.listSectors()}"
+													var="s" itemLabel="#{s.sectorName}" itemValue="#{s}" />
+											</p:selectOneMenu>
+										</p:inplace> <p:selectOneMenu value="#{title.sector}"
+											rendered="#{title.sector == null}"
+											converter="sectorConverter"
+											styleClass="ui-select-control ui-selectonemenu-size-wide">
+											<f:selectItem itemLabel="Select sector"
+												noSelectionOption="true" />
+											<f:selectItems value="#{utilitiesManagesBean.listSectors()}"
+												var="s" itemLabel="#{s.sectorName}" itemValue="#{s}" />
+										</p:selectOneMenu></li>
+									<li><p:outputLabel value="Title" /> <p:inplace
+											rendered="#{title.title.length() > 0}">
+											<p:inputText value="#{title.title}">
+												<p:ajax update=":form_details:card-title-title" />
+											</p:inputText>
+										</p:inplace> <p:inputText value="#{title.title}"
+											rendered="#{title.title.length() == 0}">
+											<p:ajax update=":form_details:card-title-title" />
+										</p:inputText> <h:commandLink styleClass="fa fa-plus">
+											<p:ajax listener="#{businessCardDetailsManagedBean.addtitle}"
+												update="form_details" />
+										</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+											process="panel0">
+											<p:collector value="#{title}"
+												removeFrom="#{businessCardDetailsManagedBean.titleList}"
+												unique="false" />
+											<p:ajax update="form_details" />
+										</h:commandLink></li>
+								</c:when>
+								<c:otherwise>
+									<li><p:outputLabel value="Company" /> <p:inputText
+											value="#{title.company}" /></li>
+									<li><p:outputLabel value="Department" /> <p:inputText
+											value="#{title.department}" /></li>
+									<li><p:outputLabel value="Sector" /> <p:selectOneMenu
+											value="#{title.sector}" converter="sectorConverter"
+											styleClass="ui-select-control ui-selectonemenu-size-wide">
+											<f:selectItem itemLabel="Select sector"
+												noSelectionOption="true" />
+											<f:selectItems value="#{utilitiesManagesBean.listSectors()}"
+												var="s" itemLabel="#{s.sectorName}" itemValue="#{s}" />
+										</p:selectOneMenu></li>
+									<li><p:outputLabel value="Title" /> <p:inputText
+											value="#{title.title}" /> <h:commandLink
+											styleClass="fa fa-plus">
+											<p:ajax listener="#{businessCardDetailsManagedBean.addtitle}"
+												update="titlePanel" />
+										</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+											process="panel0">
+											<p:collector value="#{title}"
+												removeFrom="#{businessCardDetailsManagedBean.titleList}"
+												unique="false" />
+											<p:ajax update="titlePanel" />
+										</h:commandLink></li>
+								</c:otherwise>
+							</c:choose>
+
+						</c:forEach>
+					</p:outputPanel>
+				</ul>
+				<ul class="left-side-settings">
+
+					<h3>Address</h3>
+					<li><h:outputLabel value="Street1" /> <c:choose>
+							<c:when
+								test="#{businessCardDetailsManagedBean.businessCard.address.street1 == '' || businessCardDetailsManagedBean.businessCard.address.street1 == null}">
+								<p:inputText
+									value="#{businessCardDetailsManagedBean.businessCard.address.street1}" />
+							</c:when>
+							<c:otherwise>
+								<p:inplace>
+									<p:inputText
+										value="#{businessCardDetailsManagedBean.businessCard.address.street1}" />
+								</p:inplace>
+							</c:otherwise>
+						</c:choose></li>
+
+					<li><h:outputLabel value="Street2" /> <c:choose>
+							<c:when
+								test="#{businessCardDetailsManagedBean.businessCard.address.street2==null || businessCardDetailsManagedBean.businessCard.address.street2==''}">
+								<p:inputText
+									value="#{businessCardDetailsManagedBean.businessCard.address.street2}" />
+							</c:when>
+							<c:otherwise>
+								<p:inplace>
+									<p:inputText
+										value="#{businessCardDetailsManagedBean.businessCard.address.street2}" />
+								</p:inplace>
+							</c:otherwise>
+						</c:choose></li>
+					<li><h:outputLabel value="City" /> <c:choose>
+							<c:when
+								test="#{businessCardDetailsManagedBean.businessCard.address.city==null||businessCardDetailsManagedBean.businessCard.address.city==''}">
+								<p:inputText
+									value="#{businessCardDetailsManagedBean.businessCard.address.city}" />
+							</c:when>
+							<c:otherwise>
+								<p:inplace>
+									<p:inputText
+										value="#{businessCardDetailsManagedBean.businessCard.address.city}" />
+								</p:inplace>
+							</c:otherwise>
+						</c:choose></li>
+					<li><h:outputLabel value="State" /> <c:choose>
+							<c:when
+								test="#{businessCardDetailsManagedBean.businessCard.address.state==null||businessCardDetailsManagedBean.businessCard.address.state==''}">
+								<p:inputText
+									value="#{businessCardDetailsManagedBean.businessCard.address.state}" />
+							</c:when>
+							<c:otherwise>
+								<p:inplace>
+									<p:inputText
+										value="#{businessCardDetailsManagedBean.businessCard.address.state}" />
+								</p:inplace>
+							</c:otherwise>
+						</c:choose></li>
+					<li><h:outputLabel value="Zip" /> <c:choose>
+							<c:when
+								test="#{businessCardDetailsManagedBean.businessCard.address.zip==null||businessCardDetailsManagedBean.businessCard.address.zip==''}">
+								<p:inputText
+									value="#{businessCardDetailsManagedBean.businessCard.address.zip}" />
+							</c:when>
+							<c:otherwise>
+								<p:inplace>
+									<p:inputText
+										value="#{businessCardDetailsManagedBean.businessCard.address.zip}" />
+								</p:inplace>
+							</c:otherwise>
+						</c:choose></li>
+					<li><h:outputLabel value="Country" /> <p:selectOneMenu
+							converter="contriesConverter"
+							styleClass="ui-select-control ui-selectonemenu-size-wide"
+							rendered="#{businessCardDetailsManagedBean.businessCard.address.countries == null}"
+							value="#{businessCardDetailsManagedBean.businessCard.address.countries}">
+							<f:selectItems
+								value="#{utilitiesManagesBean.countriesObjectList}" var="c"
+								itemValue="#{c}" itemLabel="#{c.countryName}" />
+						</p:selectOneMenu> <p:inplace
+							rendered="#{businessCardDetailsManagedBean.businessCard.address.countries != null}"
+							label="#{businessCardDetailsManagedBean.businessCard.address.countries.countryName}">
+							<p:selectOneMenu converter="contriesConverter"
+								styleClass="ui-select-control ui-selectonemenu-size-wide"
+								value="#{businessCardDetailsManagedBean.businessCard.address.countries}">
+								<f:selectItems
+									value="#{utilitiesManagesBean.countriesObjectList}" var="c"
+									itemValue="#{c}" itemLabel="#{c.countryName}" />
+							</p:selectOneMenu>
+						</p:inplace></li>
+
+
+				</ul>
+				<ul class="left-side-settings">
+					<li><h3>Others</h3></li>
+
+
+					<c:forEach items="#{businessCardDetailsManagedBean.websiteList}"
+						var="website">
+						<li><p:outputLabel value="Website" /> <c:choose>
+								<c:when test="#{website.id.website.length() > 0}">
+									<p:inplace>
+										<p:inputText value="#{website.id.website}" />
+									</p:inplace>
+								</c:when>
+								<c:otherwise>
+									<p:inputText value="#{website.id.website}" />
+								</c:otherwise>
+							</c:choose> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardDetailsManagedBean.addWebsite}"
+									update="form_details" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{website}"
+									removeFrom="#{businessCardDetailsManagedBean.websiteList}"
+									unique="false" />
+								<p:ajax update="form_details" />
+							</h:commandLink></li>
+					</c:forEach>
+
+
+					<c:forEach items="#{businessCardDetailsManagedBean.imList}"
+						var="im">
+						<li><p:outputLabel value="Im" /> <c:choose>
+								<c:when test="#{im.id.identifier.length() > 0}">
+									<p:inplace>
+										<p:inputText styleClass="smallInput"
+											value="#{im.id.identifier}" />
+									</p:inplace>
+									<p:inplace>
+										<p:selectOneMenu value="#{im.network}">
+											<f:selectItems value="#{businessCardManagedBean.ims}" />
+										</p:selectOneMenu>
+									</p:inplace>
+								</c:when>
+								<c:otherwise>
+									<p:inputText styleClass="smallInput"
+										value="#{im.id.identifier}" />
+									<p:selectOneMenu value="#{im.network}">
+										<f:selectItems value="#{businessCardManagedBean.ims}" />
+									</p:selectOneMenu>
+								</c:otherwise>
+							</c:choose> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardDetailsManagedBean.addIm}"
+									update="form_details" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{im}"
+									removeFrom="#{businessCardDetailsManagedBean.imList}"
+									unique="false" />
+								<p:ajax update="form_details" />
+							</h:commandLink></li>
+					</c:forEach>
+
+					<c:forEach
+						items="#{businessCardDetailsManagedBean.socialNetworkList}"
+						var="sn">
+						<li><p:outputLabel value="Social Network" /> <c:choose>
+								<c:when test="#{sn.id.identifier.length() > 0}">
+									<p:inplace>
+										<p:inputText styleClass="smallInput"
+											value="#{sn.id.identifier}" />
+									</p:inplace>
+									<p:inplace>
+										<p:selectOneMenu value="#{sn.socialNetworksTypes.name}">
+											<f:selectItems
+												value="#{businessCardManagedBean.socialNetworks}" />
+										</p:selectOneMenu>
+									</p:inplace>
+								</c:when>
+								<c:otherwise>
+									<p:inputText styleClass="smallInput"
+										value="#{sn.id.identifier}" />
+									<p:selectOneMenu value="#{sn.socialNetworksTypes.name}">
+										<f:selectItems
+											value="#{businessCardManagedBean.socialNetworks}" />
+									</p:selectOneMenu>
+								</c:otherwise>
+							</c:choose> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax
+									listener="#{businessCardDetailsManagedBean.addSocialNetwork}"
+									update="form_details" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{sn}"
+									removeFrom="#{businessCardDetailsManagedBean.socialNetworkList}"
+									unique="false" />
+								<p:ajax update="form_details" />
+							</h:commandLink></li>
+					</c:forEach>
+
+
+
+					<c:if test="#{businessCardDetailsManagedBean.bcId!=0}">
+						<li><h:outputLabel value="Notes" /> <p:inplace>
+								<p:inputTextarea
+									value="#{businessCardDetailsManagedBean.businessCard.notes}" />
+							</p:inplace></li>
+
+
+
+						<li><h:outputLabel value="Tags" /> <p:autoComplete id="tags"
+								multiple="true"
+								value="#{businessCardDetailsManagedBean.selectedTags}"
+								completeMethod="#{businessCardDetailsManagedBean.getTagsList}"
+								var="tagVar" itemLabel="#{tagVar.tagName}" itemValue="#{tagVar}"
+								converter="tagConverter">
+								<p:ajax event="itemSelect"
+									listener="#{businessCardDetailsManagedBean.handleTagSelect}" />
+								<p:ajax event="itemUnselect"
+									listener="#{businessCardDetailsManagedBean.handleTagUnselect}" />
+							</p:autoComplete></li>
+
+
+						<li><label for="company-name">Attachements</label> <c:forEach
+								items="#{businessCardDetailsManagedBean.attachementList}"
+								var="att">
+								<li><h:commandLink value="#{att.path}" style="width:80%">
+										<p:fileDownload
+											value="#{businessCardDetailsManagedBean.downloadFile(att.path)}" />
+									</h:commandLink> <h:commandLink styleClass="fa fa-remove"
+										actionListener="#{businessCardDetailsManagedBean.removeAttachement(att.attachmentId)}"
+										update=":form_details">
+
+									</h:commandLink></li>
+							</c:forEach> <p:commandLink oncomplete="PF('attachementsDialog').show()"
+								value="Upload Files" /> <p:dialog
+								widgetVar="attachementsDialog" modal="true" closeOnEscape="true"
+								showHeader="true" showEffect="bounce" hideEffect="blind"
+								resizable="false">
+								<p:outputPanel id="uploadFiles" style="text-align:center;">
+									<p:outputLabel value="Choose Files" />
+									<p:fileUpload
+										fileUploadListener="#{businessCardDetailsManagedBean.handleAttachementUpload}"
+										mode="advanced"
+										fileLimitMessage="you can upload only one avatar"
+										dragDropSupport="false"
+										oncomplete="PF('attachementsDialog').hide()"
+										sizeLimit="#{settings.AVATART_SIZE_LIMIT}" fileLimit="5"
+										auto="false" />
+								</p:outputPanel>
+							</p:dialog></li>
+
+						<h:panelGroup
+							rendered="#{businessCardDetailsManagedBean.businessCard.userSubscription.id.subType==settings.SUBSCRIPTION_TYPE_CORP}">
+							<li><label for="company-name">Permissions</label> <p:autoComplete
+									id="corpUsers" multiple="true"
+									styleClass="card-left-side-tag-li"
+									value="#{businessCardDetailsManagedBean.selectedCorporateUsers}"
+									completeMethod="#{businessCardDetailsManagedBean.getCorporateUsers}"
+									var="userVar"
+									itemLabel="#{userVar.firstName} #{userVar.lastName}"
+									itemValue="#{userVar}" converter="userConverter">
+									<p:ajax event="itemSelect"
+										listener="#{businessCardDetailsManagedBean.handleUserSelect}" />
+									<p:ajax event="itemUnselect"
+										listener="#{businessCardDetailsManagedBean.handleUserUnselect}" />
+								</p:autoComplete></li>
+						</h:panelGroup>
+					</c:if>
+
+
+				</ul>
+
+
+				</aside>
+				<aside class="main-content card-main-content">
+				<div class="user-card">
+					<div class="card-details">
+
+						<img
+							src="#{request.contextPath}/imagesPath/#{businessCardDetailsManagedBean.businessCard.businessCardId}/#{businessCardDetailsManagedBean.businessCard.avatar}" />
+						<p:outputLabel styleClass="user-card-h2" id="card-name"
+							value="#{businessCardDetailsManagedBean.businessCard.bcFirstName} #{businessCardDetailsManagedBean.businessCard.bcLastName}" />
+						<c:forEach
+							items="#{businessCardDetailsManagedBean.businessCard.titles}"
+							begin="0" end="0" step="1" var="title">
+							<p:outputLabel id="card-title-title" styleClass="user-card-p"
+								value="#{title.title}" />
+						</c:forEach>
+						<c:forEach
+							items="#{businessCardDetailsManagedBean.businessCard.titles}"
+							begin="0" end="0" step="1" var="title">
+							<p:outputLabel id="card-title-co" styleClass="user-card-p"
+								value="#{title.company}" />
+						</c:forEach>
+						<c:forEach
+							items="#{businessCardDetailsManagedBean.businessCard.emails}"
+							begin="0" end="0" step="1" var="email">
+							<p:outputLabel id="card-email"
+								styleClass="add-margin-top user-card-p"
+								value="#{email.id.emailAddress}" />
+						</c:forEach>
+						<c:forEach
+							items="#{businessCardDetailsManagedBean.businessCard.mobiles}"
+							begin="0" end="0" step="1" var="mobile">
+							<p:outputLabel id="card-mob" styleClass="user-card-p"
+								value="#{mobile.id.mobileNum}" />
+						</c:forEach>
+					</div>
+					<div class="uploadImg">
+						<p:commandLink oncomplete="PF('avatarDialog').show()">
+							<p>Upload Photo</p>
+						</p:commandLink>
+						<p:dialog widgetVar="avatarDialog" modal="true"
+							closeOnEscape="true" showHeader="false" showEffect="bounce"
+							hideEffect="blind" resizable="false">
+							<p:outputPanel id="bcRequest" style="text-align:center;">
+								<p:outputLabel value="Choose Avatar" />
+								<p:fileUpload
+									fileUploadListener="#{businessCardDetailsManagedBean.handleFileUpload}"
+									mode="advanced"
+									fileLimitMessage="you can upload only one avatar"
+									oncomplete="PF('avatarDialog').hide()" dragDropSupport="false"
+									sizeLimit="#{settings.AVATART_SIZE_LIMIT}"
+									fileLimit="#{settings.AVATART_FILE_LIMIT}"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+							</p:outputPanel>
+						</p:dialog>
+					</div>
+				</div>
+				<ul class="form-buttons-wrapper">
+					<li><p:commandLink styleClass="greenBtn"
+							action="#{businessCardDetailsManagedBean.actionSave}"
+							value="Save" update=":form_details:messages" /></li>
+					<li><a href="index.xhtml" class="greenBtn">Cancel</a></li>
+				</ul>
+
+				</aside>
+
+				<div class="clearFix"></div>
+
+			</h:form>
+
+
+
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

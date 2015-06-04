@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>User module</title>
+	<h:outputStylesheet library="css" name="normalize.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="prime_customizations.css" />
+	<link type="text/css" rel="stylesheet"
+		href="../resources/css/font-awesome.css" />
+	<link type="text/css" rel="stylesheet"
+		href="../resources/css/fonts/lato.css" />
+	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="prime_customizations.js" />
+
+</h:head>
+<h:body>
+
+	<h:form>
+
+		<div class="main-content centeredBlock">
+			<ul class="left-side-settings">
+				<li><label for="firstname">Email</label> <p:inputText
+						id="email" value="#{loginManagedBean.email}"
+						placeholder="email@somthing.com"
+						validatorMessage="invalid email address pattern." required="true"
+						size="50" requiredMessage="Please enter you email address">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText></li>
+				<li><label for="lastname">Password</label> <p:password
+						id="password" value="#{loginManagedBean.password}"
+						placeholder="******" required="true"
+						requiredMessage="Please enter password">
+						<f:validateLength minimum="6" maximum="50">
+						</f:validateLength>
+					</p:password></li>
+
+			</ul>
+
+			<ul class="form-buttons-wrapper">
+				<li><h:commandLink value="login" styleClass="greenBtnSettings"
+						action="#{loginManagedBean.loginAction}"></h:commandLink> <h:commandLink
+						value="reset" type="reset" styleClass="greenBtnSettings"></h:commandLink></li>
+			</ul>
+		</div>
+		
+		
+		
+	</h:form>
+
+
+</h:body>
+</html>

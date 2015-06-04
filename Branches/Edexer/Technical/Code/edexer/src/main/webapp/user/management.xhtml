@@ -1,0 +1,491 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Corp User module</title>
+	<h:outputStylesheet library="css" name="main.css" />
+
+</h:head>
+<body>
+	<ui:composition template="/templates/common/commonLayout.xhtml">
+		<f:loadBundle basename="settings" var="bundle" />
+		<f:loadBundle basename="businesscardvalidations" var="bundle2" />
+
+
+
+		<ui:define name="title">Edexer - Management</ui:define>
+		<ui:define name="content">
+			<div class="content-wrapper">
+				<p:messages id="mess" showDetail="true" showSummary="false"
+					autoUpdate="true" closable="true" />
+				<!-- 				<p:growl id="messages" showDetail="true" showSummary="true" /> -->
+
+				<!-- 				<h:form id="mForm"> -->
+				<!-- 					<p:growl id="messages" showDetail="true" showSummary="true" /> -->
+				<!-- 				</h:form> -->
+				<h:form id="main">
+					<aside class="left-side">
+					<h2>Options</h2>
+
+					<ul class="setting-tabs-titles">
+
+						<li><p:commandLink styleClass="settingsTitle"
+								rendered="#{userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user)}"
+								actionListener="#{userHomeManagedBean.viewInvitations}"
+								icon="ui-icon-close" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class=" fa fa-plus-circle"></i>Add Users</p:commandLink></li>
+						<li><p:commandLink styleClass="settingsTitle"
+								rendered="#{userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user)}"
+								actionListener="#{userHomeManagedBean.viewUsers}"
+								icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class=" fa fa-group"></i>users</p:commandLink></li>
+						<li><p:commandLink styleClass="settingsTitle"
+								actionListener="#{userHomeManagedBean.viewTags}"
+								icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class=" fa fa-tags"></i>Tags</p:commandLink></li>
+
+						<li><p:commandLink styleClass="settingsTitle"
+								actionListener="#{userHomeManagedBean.viewReports}"
+								icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class="fa fa-bar-chart-o"></i>Reports
+							</p:commandLink></li>
+						<li><p:commandLink styleClass="settingsTitle"
+								rendered="#{userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user)}"
+								actionListener="#{userHomeManagedBean.viewOtherSettings}"
+								icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class="fa fa-bar-chart-o"></i>Other
+							</p:commandLink></li>
+						<li><p:commandLink styleClass="settingsTitle"
+								rendered="#{userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user)}"
+								actionListener="#{userHomeManagedBean.viewTemplateSettings}"
+								icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+								ajax="true">
+								<i class=" fa fa-plus-circle"></i>Template
+							</p:commandLink></li>
+					</ul>
+					</aside>
+				</h:form>
+
+				<aside class="main-content"> <p:outputPanel id="mainPanel">
+
+
+
+					<!-- tages panel form -->
+					<h:panelGroup id="tagsMgmt"
+						rendered="#{userHomeManagedBean.showTags}">
+
+						<ul class="left-side-settings">
+							<h:form id="newTag">
+								<p:focus context="newTag" for="tagfield" />
+								<li><p:inputText value="#{userHomeManagedBean.newTagValue}"
+										placeholder="Tag value" required="true" size="50"
+										id="tagfield" /></li>
+								<li><p:commandLink value="add"
+										styleClass="greenBtnSettings"
+										actionListener="#{userHomeManagedBean.addTag}"
+										update=":#{p:component('tagsList')},tagfield" ajax="true">
+										<f:attribute name="subscriptionType"
+											value="#{bundle.SUBSCRIPTION_TYPE_CORP}"></f:attribute>
+
+									</p:commandLink></li>
+							</h:form>
+							<li><h:form id="tagListForm"
+									styleClass="settingsFormArea cont1">
+									<p:dataTable var="tag"
+										value="#{userHomeManagedBean.corpUserTags}"
+										rowIndexVar="rowId" id="tagsList" editMode="cell"
+										editable="true">
+										<!--  <p:ajax event="rowEdit"
+								listener="#{userHomeManagedBean.onTagRowEdit}"
+								update=":#{p:component('tagsList')}" /> -->
+
+										<p:ajax event="cellEdit"
+											listener="#{userHomeManagedBean.onTagCellEdit( rowId, bundle.SUBSCRIPTION_TYPE_CORP, tag.tagName)}"
+											update=":#{p:component('tagsList')}">
+										</p:ajax>
+										<p:column headerText="Tag Value" style="width:150px">
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{tag.tagName}" />
+												</f:facet>
+												<f:facet name="input">
+													<p:inputText value="#{tag.tagName}" style="width:100%" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column style="width:32px">
+											<p:commandLink icon="ui-icon-close"
+												actionListener="#{userHomeManagedBean.deleteTag}"
+												ajax="true" update=":#{p:component('tagsList')}">
+												<f:attribute name="tagObj" value="#{tag}" />
+												<f:attribute name="rowId" value="#{rowId}" />
+												<f:attribute name="subscriptionType"
+													value="#{bundle.SUBSCRIPTION_TYPE_CORP}"></f:attribute>
+												<i class=" fa fa-close"></i>
+											</p:commandLink>
+										</p:column>
+
+									</p:dataTable>
+								</h:form></li>
+						</ul>
+
+
+
+					</h:panelGroup>
+
+					<!-- user management table -->
+					<h:panelGroup id="userMgmt"
+						rendered="#{userHomeManagedBean.showUsersList and (userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user))}">
+						<h:form id="userListForm">
+							<ul class="left-side-settings">
+								<p:dataTable value="#{userHomeManagedBean.userList}" var="user"
+									editable="true" style="margin-bottom:20px" id="userList"
+									rowIndexVar="rowId">
+									<p:ajax event="rowEdit"
+										listener="#{userHomeManagedBean.onRowEdit}" update="userList" />
+									<p:column width="130">
+										<f:facet name="header">
+											<h:column>
+												<h:outputText value="Name"></h:outputText>
+											</h:column>
+										</f:facet>
+										<h:outputText value="#{user.firstName} #{user.lastName}"></h:outputText>
+									</p:column>
+
+									<p:column width="200">
+										<f:facet name="header">
+											<h:column>
+												<h:outputText value="Email"></h:outputText>
+											</h:column>
+										</f:facet>
+										<h:outputText value="#{user.userEmail}"></h:outputText>
+									</p:column>
+									<p:column headerText="Admin" width="60">
+										<p:outputLabel value="Owner"
+											rendered="#{userHomeManagedBean.isSubscriptionOwner(user)}" />
+										<p:cellEditor
+											rendered="#{!userHomeManagedBean.isSubscriptionOwner(user)}">
+											<f:facet name="output">
+												<p:outputLabel
+													rendered="#{userHomeManagedBean.isSubscriptionAdmin(user)}"
+													value="Yes" />
+												<p:outputLabel
+													rendered="#{!userHomeManagedBean.isSubscriptionAdmin(user)}"
+													value="No" />
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu
+													value="#{userHomeManagedBean.editedUserRole}">
+													<f:selectItem itemLabel="Yes" itemValue="Y" />
+													<f:selectItem itemLabel="No" itemValue="N" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column headerText="Export" style="width:70px">
+										<p:outputLabel value="Enabled"
+											rendered="#{userHomeManagedBean.isSubscriptionOwner(user)}" />
+										<p:outputLabel value="Enabled"
+											rendered="#{userHomeManagedBean.isSubscriptionAdmin(user)}" />
+										<p:cellEditor
+											rendered="#{!userHomeManagedBean.isSubscriptionOwner(user) and !userHomeManagedBean.isSubscriptionAdmin(user)}">
+											<f:facet name="output">
+												<p:outputLabel value="Enabled"
+													rendered="#{userHomeManagedBean.isExportEnabled(user.userId)}" />
+												<p:outputLabel value="Not Enabled"
+													rendered="#{!userHomeManagedBean.isExportEnabled(user.userId)}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu
+													value="#{userHomeManagedBean.editedUserExport}">
+													<f:selectItem itemLabel="Yes" itemValue="Y" />
+													<f:selectItem itemLabel="No" itemValue="N" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+									<p:column width="32">
+										<p:rowEditor />
+
+									</p:column>
+									<p:column width="60">
+										<p:commandLink styleClass="removeCard txtWhite txt16"
+											rendered="#{!userHomeManagedBean.isSubscriptionOwner(user)}"
+											action="#{userHomeManagedBean.deleteUser(user.userId)}"
+											ajax="true" update="userList">
+											<i class="ui-icon ui-icon-close"></i>
+											<p:confirm header="Confirmation"
+												message="Are you sure you want to delete this user ?"
+												icon="ui-icon-alert" />
+											<p:ajax update="userList" />
+										</p:commandLink>
+									</p:column>
+								</p:dataTable>
+							</ul>
+						</h:form>
+						<p:confirmDialog global="true" showEffect="blind"
+							hideEffect="blind">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</h:panelGroup>
+
+					<!-- send invitation form-->
+					<h:panelGroup id="sendInv"
+						rendered="#{userHomeManagedBean.showInvitations and (userHomeManagedBean.isSubscriptionOwner(user) or userHomeManagedBean.isSubscriptionAdmin(user))}">
+
+						<h:form styleClass="settingsFormArea cont1">
+							<p:focus context="sendInv" for="firstname" />
+							<ul class="left-side-settings">
+								<li><p:outputLabel value="First Name" /> <p:inputText
+										id="firstname"
+										value="#{staffUsersManagedBean.newUser.firstName}">
+										<f:validateLength minimum="0" maximum="50"></f:validateLength>
+									</p:inputText></li>
+								<li><p:outputLabel value="Last Name" /> <p:inputText
+										id="lastname"
+										value="#{staffUsersManagedBean.newUser.lastName}">
+										<f:validateLength minimum="0" maximum="50"></f:validateLength>
+									</p:inputText></li>
+								<li><p:outputLabel value="Title" /> <p:inputText
+										id="title" value="#{staffUsersManagedBean.newUser.title}">
+										<f:validateLength minimum="0" maximum="50"></f:validateLength>
+									</p:inputText></li>
+								<li><p:outputLabel value="Email" id="email"
+										placeholder="emailaddress@example.com"
+										validatorMessage="invalid email address pattern."
+										required="true"
+										requiredMessage="Please enter you email address" size="150" />
+									<p:inputText label="please enter your email"
+										value="#{staffUsersManagedBean.newUser.userEmail}">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText></li>
+								<li><p:outputLabel value="Mobile" /> <p:inputText
+										id="mobile" value="#{staffUsersManagedBean.newUser.mobile}">
+										<f:validateLength minimum="0" maximum="50"></f:validateLength>
+										<f:validateRegex pattern="(^[+-d\s()]+$)|" />
+									</p:inputText></li>
+								<li><p:outputLabel value="Phone" /> <p:inputText
+										id="phone" value="#{staffUsersManagedBean.newUser.phone}">
+										<f:validateLength minimum="0" maximum="50"></f:validateLength>
+										<f:validateRegex pattern="(^[+-d\s()]+$)|" />
+									</p:inputText></li>
+								<li><p:outputLabel value="Password" /> <p:inputText
+										value="#{staffUsersManagedBean.newUser.password}"
+										style="width:100%" type="password">
+										<f:validateLength minimum="6" maximum="50">
+										</f:validateLength>
+									</p:inputText></li>
+							</ul>
+
+							<ul class="form-buttons-wrapper">
+								<li><a href="usersettings.xhtml" class="greenBtnSettings">Cancel</a></li>
+								<li><p:commandLink
+										action="#{staffUsersManagedBean.addUser}" value="Add"
+										styleClass="greenBtnSettings"></p:commandLink></li>
+							</ul>
+						</h:form>
+
+
+					</h:panelGroup>
+
+					<!-- reporting form -->
+					<h:panelGroup id="reports"
+						rendered="#{userHomeManagedBean.showReports}">
+						<h:form id="reportsForm">
+
+							<ul class="left-side-settings">
+								<li><p:outputLabel>Country</p:outputLabel> <p:selectOneMenu
+										styleClass="ui-select-control ui-selectonemenu-size-wide"
+										value="#{reportingManagedBean.reportCountry}"
+										converter="contriesConverter">
+										<f:selectItem itemLabel="None" />
+										<f:selectItems value="#{utilitiesManagesBean.listCountries()}"
+											var="country" itemLabel="#{country.countryName}"
+											itemValue="#{country}" />
+									</p:selectOneMenu></li>
+								<li><p:outputLabel>Sector</p:outputLabel> <p:selectOneMenu
+										styleClass="ui-select-control ui-selectonemenu-size-wide"
+										value="#{reportingManagedBean.reportSector}"
+										converter="sectorConverter">
+										<f:selectItem itemLabel="None" />
+										<f:selectItems
+											value="#{utilitiesManagesBean.lookupsService.sectorList}"
+											var="sector" itemLabel="#{sector.sectorName}"
+											itemValue="#{sector}" />
+									</p:selectOneMenu></li>
+								<li><p:dialog modal="true" widgetVar="statusDialog"
+										header="Status" draggable="false" closable="false"
+										resizable="false">
+										<h:graphicImage value="/resources/images/ajaxloadingbar.gif"
+											alt="Loading..." />
+									</p:dialog> <p:commandLink value="Run Report" ajax="false"
+										styleClass="greenBtnSettings"
+										onclick="PrimeFaces.monitorDownload(start, stop);"
+										icon="ui-icon-arrowthick-1-s">
+										<p:fileDownload value="#{reportingManagedBean.report}" />
+										<f:param name="subType" value="1" />
+									</p:commandLink></li>
+							</ul>
+						</h:form>
+
+
+
+
+
+
+
+						<script type="text/javascript">
+						function start() {
+						    PF('statusDialog').show();
+						}
+						 
+						function stop() {
+						    PF('statusDialog').hide();
+						}
+					</script>
+
+					</h:panelGroup>
+
+
+					<!-- Others form -->
+					<h:panelGroup id="otherSettings"
+						rendered="#{userHomeManagedBean.showOtherSettings}">
+						<h:form id="otherSettingsForm">
+							<ul class="left-side-settings">
+								<li><h2>Import Settings</h2></li>
+								<li><p:outputLabel>Max Number of records</p:outputLabel> <p:spinner
+										style="text-align:left;" dir="rtl"
+										value="#{businessCardImportManagedBean.maxRowCountnow}"></p:spinner>
+								</li>
+
+								<li><p:commandLink value="Save" ajax="false"
+										styleClass="greenBtnSettings"
+										action="#{businessCardImportManagedBean.updateMaxRowCount()}">
+									</p:commandLink></li>
+							</ul>
+						</h:form>
+					</h:panelGroup>
+
+					<!-- Template form -->
+					<h:panelGroup id="templateSettings"
+						rendered="#{userHomeManagedBean.showTemplateSettings}">
+						<h:form id="templateSettingsForm">
+							<ul class="left-side-settings">
+								<li><h2>Import Template</h2></li>
+								<li>
+									<div class="importDescription txtRegular txt14 txtGreen1"
+										style="width: 250px;">
+
+										<div class="importLabel txtBold txt24 txtGreen1 ">Import
+											Html File</div>
+										<div>
+											<p:dialog widgetVar="tempDialog" modal="true" closable="true"
+												closeOnEscape="true" showHeader="true" showEffect="bounce"
+												hideEffect="blind" resizable="false">
+												<p:outputPanel id="template" style="text-align:center;">
+													<p:outputLabel value="Upload Html" />
+													<h:form enctype="multipart/form-data">
+														<p:column>
+
+															<p:fileUpload value="#{templateImportManagedBean.htmlFile}"
+																fileUploadListener="#{templateImportManagedBean.uploadHtml}"
+																mode="advanced" update=":loadTemplats:tempDrop"
+																allowTypes="/(\.|\/)(html|css)$/"
+																oncomplete="PF('tempDialog').hide()" auto="false">
+
+															</p:fileUpload>
+
+														</p:column>
+													</h:form>
+
+												</p:outputPanel>
+											</p:dialog>
+										</div>
+										<p:commandLink oncomplete="PF('tempDialog').show()"
+											onsuccess="PF('tempDialog').hide()"
+											styleClass="greenBtninsettting " value="Upload">
+
+										</p:commandLink>
+
+									</div>
+									<div class="importDescription txtRegular txt14 txtGreen1"
+										style="width: 250px; margin-left: 270px; margin-top: -120px;">
+										<div class="importLabel txtBold txt24 txtGreen1 ">Import
+											Zip File</div>
+										<div>
+											<p:dialog widgetVar="tempDialogZip" modal="true"
+												closable="true" closeOnEscape="true" showHeader="true"
+												showEffect="bounce" hideEffect="blind" resizable="false">
+												<p:outputPanel id="templateZip" style="text-align:center;">
+													<p:outputLabel value="Upload Zip" />
+													<h:form enctype="multipart/form-data">
+														<p:fileUpload value="#{templateImportManagedBean.zipFile}"
+															update=":loadTemplats:tempDrop"
+															fileUploadListener="#{templateImportManagedBean.uploadZip}"
+															mode="advanced" allowTypes="/(\.|\/)(zip)$/"
+															oncomplete="PF('tempDialogZip').hide()" auto="false">
+
+														</p:fileUpload>
+													</h:form>
+												</p:outputPanel>
+											</p:dialog>
+										</div>
+										<p:commandLink oncomplete="PF('tempDialogZip').show()"
+											onsuccess="PF('tempDialogZip').hide()"
+											styleClass="greenBtninsettting " value="Upload">
+										</p:commandLink>
+									</div>
+								</li>
+								<li><br></br></li>
+								<li><br></br></li>
+							</ul>
+						</h:form>
+						<h:form id="loadTemplats">
+							<ul>
+								<li><p:panel header="Select a Location"
+										style="margin-left:30px;margin-bottom:10px;background-color:#ebebeb;width:520px;">
+										<h:panelGrid columns="2" cellpadding="5">
+											<p:outputLabel value="Template Name: " />
+											<p:selectOneMenu id="tempDrop" style="width:150px"
+												value="#{templateImportManagedBean.selectedTemplateName}">
+												<f:selectItem itemLabel="Select Template" itemValue="-1"
+													noSelectionOption="true" />
+												<f:selectItems value="#{templateImportManagedBean.templates}" />
+											</p:selectOneMenu>
+										</h:panelGrid>
+									</p:panel></li>
+									<li><br></br></li>
+								<li style="margin-left: 130px;"><h:commandLink value="View"
+										action="#{templateImportManagedBean.writeHtmlOnPage()}"
+										styleClass="greenBtn" /> <h:commandLink
+										value="Cancel" styleClass="greenBtn" /></li>
+							</ul>
+
+						</h:form>
+
+
+					</h:panelGroup>
+
+				</p:outputPanel> </aside>
+				<div class="clearFix"></div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

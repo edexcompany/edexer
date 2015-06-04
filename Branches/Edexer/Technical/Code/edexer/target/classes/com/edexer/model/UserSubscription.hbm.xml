@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.UserSubscription" table="user_subscription" catalog="edexer_edexer">
+        <composite-id name="id" class="com.edexer.model.UserSubscriptionId">
+            <key-property name="userId" type="int">
+                <column name="user_id" />
+            </key-property>
+            <key-property name="subType" type="int">
+                <column name="sub_type" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="userByLastEditBy" class="com.edexer.model.User" fetch="select">
+            <column name="last_edit_by" />
+        </many-to-one>
+        <many-to-one name="userByUserId" class="com.edexer.model.User" update="false" insert="false" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lastEditReason" class="com.edexer.model.LastEditReason" fetch="select">
+            <column name="last_edit_reason" />
+        </many-to-one>
+        <many-to-one name="subscriptionStatus" class="com.edexer.model.SubscriptionStatus" fetch="select">
+            <column name="sub_status" not-null="true" />
+        </many-to-one>
+        <many-to-one name="actAs" class="com.edexer.model.ActAs" fetch="select">
+            <column name="act_as" not-null="true" />
+        </many-to-one>
+        <many-to-one name="subscription" class="com.edexer.model.Subscription" update="false" insert="false" fetch="select">
+            <column name="sub_type" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userBySubscriptionOwner" class="com.edexer.model.User" fetch="select">
+            <column name="subscription_owner" />
+        </many-to-one>
+        <property name="startDate" type="date">
+            <column name="start_date" length="10" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="end_date" length="10" />
+        </property>
+        <property name="subscriptionDate" type="date">
+            <column name="subscription_date" length="10" />
+        </property>
+        <property name="lastEditDate" type="date">
+            <column name="last_edit_date" length="10" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" length="100" />
+        </property>
+        <property name="isAdmin" type="string">
+            <column name="isAdmin" length="1" />
+        </property>
+        <property name="canExport" type="string">
+            <column name="can_export" length="1" />
+        </property>
+        <set name="businessCards" table="business_card" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="subscription_user_id" />
+                <column name="subscription_sub_type" />
+            </key>
+            <one-to-many class="com.edexer.model.BusinessCard" />
+        </set>
+        <set name="bcPermissionses" table="bc_permissions" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_subscription_user_id" not-null="true" />
+                <column name="user_subscription_sub_type" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.BcPermissions" />
+        </set>
+        <set name="tagses" table="tags" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+                <column name="sub_type" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Tags" />
+        </set>
+    </class>
+</hibernate-mapping>

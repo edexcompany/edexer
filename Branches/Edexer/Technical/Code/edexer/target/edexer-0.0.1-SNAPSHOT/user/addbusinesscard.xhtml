@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+</h:head>
+
+<f:loadBundle basename="businesscardvalidations" var="validations" />
+
+<ui:composition template="/templates/common/commonLayout.xhtml">
+	<ui:define name="title">FindOn - Add</ui:define>
+	<ui:define name="content">
+		<div class="content-wrapper">
+			<h3>Add Business Card</h3>
+
+			<h:form id="form1">
+
+				<p:messages id="messages" autoUpdate="true" showDetail="true" />
+				<aside class="left-side card-left-side "> <p:focus
+					context="form1" />
+				<ul class="left-side-settings">
+					<li><h3>Basic Information</h3></li>
+					<li><label for="name">First Name</label> <p:inputText
+							styleClass="main-content input" id="name"
+							value="#{businessCardCreationManagedBean.businessCard.bcFirstName}">
+							<f:validateLength maximum="20" />
+							<p:ajax update=":form1:card-name" />
+						</p:inputText></li>
+					<li><label for="name2">Last Name</label> <p:inputText
+							styleClass="main-content input" id="name2"
+							value="#{businessCardCreationManagedBean.businessCard.bcLastName}">
+							<f:validateLength maximum="20"></f:validateLength>
+							<p:ajax update=":form1:card-name" />
+						</p:inputText></li>
+
+					<c:forEach items="#{businessCardCreationManagedBean.mobileList}"
+						var="mobile">
+						<p:outputPanel>
+							<li><label for="name2">Mobile</label> <p:inputText
+									value="#{mobile.id.mobileNum}" styleClass="main-content input">
+									<p:ajax update=":form1:card-mob" />
+								</p:inputText> <h:commandLink styleClass="fa fa-plus">
+									<p:ajax listener="#{businessCardCreationManagedBean.addMobile}"
+										update="form1" />
+								</h:commandLink> <h:commandLink class="fa fa-minus" update="panel0"
+									process="panel0">
+									<p:collector value="#{mobile}"
+										removeFrom="#{businessCardCreationManagedBean.mobileList}"
+										unique="false" />
+									<p:ajax update="form1" />
+								</h:commandLink></li>
+						</p:outputPanel>
+
+					</c:forEach>
+
+					<c:forEach items="#{businessCardCreationManagedBean.phoneList}"
+						var="phone">
+						<li><label for="telephone">Telephone</label> <p:inputText
+								value="#{phone.id.phoneNum}" styleClass="main-content input" />
+							<h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addPhone}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{phone}"
+									removeFrom="#{businessCardCreationManagedBean.phoneList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+
+
+					<c:forEach items="#{businessCardCreationManagedBean.faxList}"
+						var="fax">
+						<li><label for="fax">Fax</label> <p:inputText
+								value="#{fax.id.faxNum}" styleClass="main-content input" /> <h:commandLink
+								styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addFax}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{fax}"
+									removeFrom="#{businessCardCreationManagedBean.faxList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+					<c:forEach items="#{businessCardCreationManagedBean.emailList}"
+						var="email">
+						<li><label for="email">Email</label> <p:inputText
+								value="#{email.id.emailAddress}" styleClass="main-content input">
+								<p:ajax update=":form1:card-email" />
+							</p:inputText> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addEmail}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{email}"
+									removeFrom="#{businessCardCreationManagedBean.emailList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+				</ul>
+
+
+
+				<ul class="left-side-settings">
+
+					<li><h3>Professional Information</h3></li>
+
+					<c:forEach items="#{businessCardCreationManagedBean.titleList}"
+						var="title">
+						<li><label for="company-name">Company</label> <p:inputText
+								value="#{title.company}" styleClass="main-content input">
+								<p:ajax update=":form1:card-title-co" />
+							</p:inputText></li>
+						<li><label for="company-name">Department</label> <p:inputText
+								value="#{title.department}" styleClass="main-content input" /></li>
+						<li><label for="company-name">Sector</label> <p:selectOneMenu
+								styleClass="ui-select-control ui-selectonemenu-size-wide"
+								value="#{title.sector.sectorName}">
+								<f:selectItems value="#{businessCardManagedBean.sectors}" />
+							</p:selectOneMenu></li>
+						<li><label for="company-name">Title</label> <p:inputText
+								value="#{title.title}" styleClass="main-content input">
+								<p:ajax update=":form1:card-title-title" />
+							</p:inputText> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addtitle}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{title}"
+									removeFrom="#{businessCardCreationManagedBean.titleList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+				</ul>
+
+
+				<ul class="left-side-settings">
+
+					<li><h3>Address</h3></li>
+					<li><label for="company-name">Street 1</label> <p:inputText
+							styleClass="main-content input"
+							value="#{businessCardCreationManagedBean.businessCard.address.street1}" />
+					</li>
+					<li><label for="company-name">Street 2</label> <p:inputText
+							styleClass="main-content input"
+							value="#{businessCardCreationManagedBean.businessCard.address.street2}" />
+					</li>
+					<li><label for="company-name">City</label> <p:inputText
+							styleClass="main-content input"
+							value="#{businessCardCreationManagedBean.businessCard.address.city}" />
+					</li>
+					<li><label for="company-name">State</label> <p:inputText
+							styleClass="main-content input"
+							value="#{businessCardCreationManagedBean.businessCard.address.state}" />
+					</li>
+					<li><label for="company-name">Zip</label> <p:inputText
+							styleClass="main-content input"
+							value="#{businessCardCreationManagedBean.businessCard.address.zip}" />
+					</li>
+					<li><label for="company-name">Country</label> <p:selectOneMenu
+							styleClass="ui-select-control ui-selectonemenu-size-wide"
+							value="#{businessCardCreationManagedBean.countryId}">
+							<f:selectItems value="#{businessCardManagedBean.countries}" />
+						</p:selectOneMenu></li>
+
+				</ul>
+
+
+				<ul class="left-side-settings" id="othersUl">
+					<li><h3>Others</h3></li>
+					<c:forEach items="#{businessCardCreationManagedBean.websiteList}"
+						var="website">
+						<li><label for="company-name">Website</label> <p:inputText
+								styleClass="main-content input" value="#{website.id.website}" />
+							<h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addWebsite}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{website}"
+									removeFrom="#{businessCardCreationManagedBean.websiteList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+
+					<c:forEach items="#{businessCardCreationManagedBean.imList}"
+						var="im">
+						<li><label for="company-name">Im</label> <p:inputText
+								styleClass="smallInput" value="#{im.id.identifier}" /> <p:selectOneMenu
+								value="#{im.network}"
+								styleClass="ui-select-control ui-selectonemenu-size-small">
+								<f:selectItems value="#{businessCardManagedBean.ims}" />
+							</p:selectOneMenu> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax listener="#{businessCardCreationManagedBean.addIm}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{im}"
+									removeFrom="#{businessCardCreationManagedBean.imList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+
+					<c:forEach
+						items="#{businessCardCreationManagedBean.socialNetworkList}"
+						var="sn">
+						<li><label for="company-name">Social Network</label> <p:inputText
+								value="#{sn.id.identifier}" styleClass="smallInput" /> <p:selectOneMenu
+								value="#{sn.socialNetworksTypes.snTypeId}"
+								styleClass="ui-select-control ui-selectonemenu-size-small">
+								<f:selectItems value="#{businessCardManagedBean.socialNetworks}" />
+							</p:selectOneMenu> <h:commandLink styleClass="fa fa-plus">
+								<p:ajax
+									listener="#{businessCardCreationManagedBean.addSocialNetwork}"
+									update="form1" />
+							</h:commandLink> <h:commandLink styleClass="fa fa-minus" update="panel0"
+								process="panel0">
+								<p:collector value="#{sn}"
+									removeFrom="#{businessCardCreationManagedBean.socialNetworkList}"
+									unique="false" />
+								<p:ajax update="form1" />
+							</h:commandLink></li>
+					</c:forEach>
+
+					<li><label for="company-name">Notes</label> <p:inputTextarea
+							autoResize="false" rows="3" cols="35"
+							value="#{businessCardCreationManagedBean.businessCard.notes}" />
+					</li>
+					<h:panelGroup
+						rendered="#{businessCardCreationManagedBean.hasCorpSubscription()}">
+						<li><p:outputLabel value="Subscription" /> <p:selectOneMenu
+								id="subscription" required="true"
+								styleClass="ui-select-control ui-selectonemenu-size-wide"
+								value="#{businessCardCreationManagedBean.subscriptionType}">
+								<p:ajax
+									listener="#{businessCardCreationManagedBean.setAutocompleteMethod}"
+									update="tags" />
+								<f:selectItems
+									value="#{businessCardCreationManagedBean.subscriptionTypeMap}" />
+							</p:selectOneMenu></li>
+					</h:panelGroup>
+
+					<li><label for="company-name">Tags</label> <p:autoComplete
+							id="tags" multiple="true" styleClass="card-left-side-tag-li"
+							value="#{businessCardCreationManagedBean.selectedTags}"
+							completeMethod="#{tagsManagedBean.getPersonalTagsList}"
+							var="tagVar" itemLabel="#{tagVar.tagName}" itemValue="#{tagVar}"
+							binding="#{businessCardCreationManagedBean.tagsAutocompleteControl}"
+							converter="tagConverter">
+							<p:ajax event="itemSelect"
+								listener="#{businessCardCreationManagedBean.handleTagSelect}" />
+							<p:ajax event="itemUnselect"
+								listener="#{businessCardCreationManagedBean.handleTagUnselect}" />
+						</p:autoComplete></li>
+
+					<li><label for="company-name">Attachements</label> <p:commandLink
+							oncomplete="PF('attachementsDialog').show()" value="Upload Files" />
+						<p:dialog widgetVar="attachementsDialog" modal="true"
+							closeOnEscape="true" showHeader="true" showEffect="bounce"
+							hideEffect="blind" resizable="false">
+							<p:outputPanel id="uploadFiles" style="text-align:center;">
+								<p:outputLabel value="Choose Files" />
+								<p:fileUpload
+									fileUploadListener="#{businessCardCreationManagedBean.handleAttachementUpload}"
+									mode="advanced"
+									fileLimitMessage="you can upload only one avatar"
+									dragDropSupport="false"
+									oncomplete="PF('attachementsDialog').hide()"
+									sizeLimit="#{settings.AVATART_SIZE_LIMIT}" fileLimit="5"
+									auto="false" />
+							</p:outputPanel>
+						</p:dialog></li>
+					<h:panelGroup
+						rendered="#{businessCardCreationManagedBean.hasCorpSubscription()}">
+						<li><label for="company-name">Permissions</label> <p:autoComplete
+								id="corpUsers" multiple="true"
+								styleClass="card-left-side-tag-li"
+								value="#{businessCardCreationManagedBean.selectedCorporateUsers}"
+								completeMethod="#{businessCardCreationManagedBean.getCorporateUsers}"
+								var="userVar"
+								itemLabel="#{userVar.firstName} #{userVar.lastName}"
+								itemValue="#{userVar}" converter="userConverter">
+								<p:ajax event="itemSelect"
+									listener="#{businessCardCreationManagedBean.handleUserSelect}" />
+								<p:ajax event="itemUnselect"
+									listener="#{businessCardCreationManagedBean.handleUserUnselect}" />
+							</p:autoComplete></li>
+					</h:panelGroup>
+				</ul>
+
+
+
+
+
+				</aside>
+
+
+
+				<aside class="main-content card-main-content">
+
+				<div class="user-card">
+					<div class="card-details">
+						<img src="../resources/images/avatar.png" />
+						<p:outputLabel styleClass="user-card-h2" id="card-name"
+							value="#{businessCardCreationManagedBean.businessCard.bcFirstName} #{businessCardCreationManagedBean.businessCard.bcLastName}" />
+						<c:forEach items="#{businessCardCreationManagedBean.titleList}"
+							begin="0" end="0" step="1" var="title">
+							<p:outputLabel id="card-title-title" styleClass="user-card-p"
+								value="#{title.title}" />
+						</c:forEach>
+						<c:forEach items="#{businessCardCreationManagedBean.titleList}"
+							begin="0" end="0" step="1" var="title">
+							<p:outputLabel id="card-title-co" styleClass="user-card-p"
+								value="#{title.company}" />
+						</c:forEach>
+						<c:forEach items="#{businessCardCreationManagedBean.emailList}"
+							begin="0" end="0" step="1" var="email">
+							<p:outputLabel id="card-email"
+								styleClass="add-margin-top user-card-p"
+								value="#{email.id.emailAddress}" />
+						</c:forEach>
+						<c:forEach items="#{businessCardCreationManagedBean.mobileList}"
+							begin="0" end="0" step="1" var="mobile">
+							<p:outputLabel id="card-mob" styleClass="user-card-p"
+								value="#{mobile.id.mobileNum}" />
+						</c:forEach>
+					</div>
+
+
+
+
+
+					<div class="uploadImg">
+
+						<h:form id="form2">
+
+							<p:commandLink oncomplete="PF('avatarDialog').show()">
+								<p>Upload Photo</p>
+							</p:commandLink>
+							<p:dialog widgetVar="avatarDialog" modal="true"
+								closeOnEscape="true" showHeader="true" showEffect="bounce"
+								hideEffect="blind" resizable="false">
+								<p:outputPanel id="bcRequest" style="text-align:center;">
+									<p:outputLabel value="Choose Avatar" />
+									<p:fileUpload
+										fileUploadListener="#{businessCardCreationManagedBean.handleFileUpload}"
+										mode="advanced"
+										fileLimitMessage="you can upload only one avatar"
+										dragDropSupport="false" oncomplete="PF('avatarDialog').hide()"
+										sizeLimit="#{settings.AVATART_SIZE_LIMIT}"
+										fileLimit="#{settings.AVATART_FILE_LIMIT}"
+										allowTypes="/(\.|\/)(gif|jpe?g|png)$/" auto="false" />
+								</p:outputPanel>
+							</p:dialog>
+
+						</h:form>
+
+					</div>
+				</div>
+
+
+				<ul class="form-buttons-wrapper">
+
+					<li><p:commandLink styleClass="greenBtn"
+							action="#{businessCardCreationManagedBean.actionSave}"
+							value="Save" update=":form1:messages" /></li>
+					<li><p:commandLink styleClass="greenBtn"
+							action="#{businessCardCreationManagedBean.actionSaveAndNew}"
+							value="Save and New" /></li>
+					<li><a href="index.xhtml" class="greenBtn">Cancel</a></li>
+				</ul>
+				</aside>
+
+				<div class="clearFix"></div>
+
+
+
+
+			</h:form>
+
+
+
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

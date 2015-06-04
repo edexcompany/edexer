@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+	<ui:composition template="/templates/common/commonLayout.xhtml">
+		<ui:define name="title">FindOn - Settings</ui:define>
+		<ui:define name="content">
+			<div class="content-wrapper">
+
+				<p:messages id="messages" showDetail="true" showSummary="false"
+					autoUpdate="true" closable="true" />
+
+				<aside class="left-side">
+				<h2>Settings</h2>
+
+
+
+				<ul class="setting-tabs-titles">
+					<li><a href="#" class="settingsTitle" data-cont="cont1"><i
+							class=" fa fa-user"></i>Profile</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont2"><i
+							class="fa fa-lock"></i>Password</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont3"><i
+							class="fa fa-envelope"></i>E-Mail</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont4"><i
+							class="fa fa-globe"></i>Network</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont5"><i
+							class="fa fa-envelope"></i>Bulk Mail</a></li>
+					<li><a href="#" class="settingsTitle" data-cont="cont6"><i
+							class="fa fa-envelope"></i>Send Invitations</a></li>
+				</ul>
+				</aside>
+
+
+				<aside class="main-content"> <!--   Profile Settings  --> <h:form
+					id="profileForm">
+					<p:focus context="profileForm" />
+					<div class="settingsFormArea cont1">
+						<ul class="left-side-settings">
+							<li><label for="firstname">First Name</label> <p:inputText
+									id="firstname"
+									value="#{userSettingsManagedBean.user.firstName}" /></li>
+							<li><label for="lastname">Last Name</label> <p:inputText
+									value="#{userSettingsManagedBean.user.lastName}" /></li>
+							<li><label for="lastname">Mobile</label> <p:inputText
+									value="#{userSettingsManagedBean.user.mobile}" /></li>
+							<li><label for="lastname">Phone</label> <p:inputText
+									value="#{userSettingsManagedBean.user.phone}" /></li>
+							<li><label for="lastname">Title</label> <p:inputText
+									value="#{userSettingsManagedBean.user.title}" /></li>
+						</ul>
+
+						<ul class="form-buttons-wrapper">
+							<li><a href="usersettings.xhtml" class="greenBtnSettings">Cancel</a></li>
+							<li><p:commandLink value="Save Changes"
+									styleClass="greenBtnSettings"
+									action="#{userSettingsManagedBean.saveProfileUnit}" /></li>
+						</ul>
+					</div>
+				</h:form> <!--  Password Settings  --> <h:form id="passForm"
+					class="settingsFormArea cont2">
+
+					<ul class="left-side-settings">
+						<li><label for="old-password">Old Password</label> <p:password
+								id="OldPassword" value="#{userSettingsManagedBean.oldPassword}"
+								placeholder="******" required="true"
+								styleClass="main-content input" /></li>
+						<li><label for="new-password">New Password</label> <p:password
+								value="#{userSettingsManagedBean.newPassword}" id="NewPassword"
+								placeholder="******" required="true" match="ConfirmPassword"
+								label="Password" feedback="true"
+								requiredMessage="Please enter password">
+								<f:validateLength minimum="6" maximum="50">
+								</f:validateLength>
+							</p:password></li>
+						<li><label for="confirm-password">Confirm New
+								Password</label> <p:password
+								value="#{userSettingsManagedBean.confirmPassword}"
+								label="Confirm Password" id="ConfirmPassword"
+								placeholder="******" required="true" /></li>
+					</ul>
+					<ul class="form-buttons-wrapper">
+						<li><a href="usersettings.xhtml" class="greenBtnSettings">Cancel</a></li>
+						<li><p:commandLink value="Save" styleClass="greenBtnSettings"
+								action="#{userSettingsManagedBean.savePasswordUnit}" /></li>
+					</ul>
+				</h:form> <!-- Email Settings--> <h:form class="settingsFormArea cont3">
+					<ul class="left-side-settings">
+						<li><label for="current-email">Password</label> <p:password
+								id="email-pass" value="#{userSettingsManagedBean.oldPassword}" />
+						</li>
+						<li><label for="current-password">Email</label> <p:inputText
+								id="newmail" value="#{userSettingsManagedBean.user.userEmail}"
+								placeholder="email@somthing.com"
+								validatorMessage="invalid email address pattern."
+								required="true" size="50"
+								requiredMessage="Please enter you email address">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText></li>
+						<li></li>
+					</ul>
+					<ul class="form-buttons-wrapper">
+						<li><a href="usersettings.xhtml" class="greenBtnSettings">Cancel</a></li>
+						<li><p:commandLink value="Save" styleClass="greenBtnSettings"
+								action="#{userSettingsManagedBean.saveEmailUnit()}" /></li>
+					</ul>
+				</h:form> <!--  Network Settings  --> <h:form class="settingsFormArea cont4">
+					<ul class="network-tab">
+						<li>
+							<p>
+								Connected to <a href="#" class="connect-to-link">facebook.com/ramy</a>
+							</p>
+							<p>
+								Having a trouble? <a href="#">Try reconnect</a> <a href="#"
+									class="disconnect">Disconnect</a>
+							</p> <a href="#" class="connect-to connect-to-facebook"><i
+								class="fa fa-facebook-square"></i>
+								<p>Connect with Facebook</p></a>
+						</li>
+						<li>
+							<p>
+								Connected to <a href="#" class="connect-to-link">twitter.com/ramy</a>
+							</p>
+							<p>
+								Having a trouble? <a href="#">Try reconnect</a> <a href="#"
+									class="disconnect">Disconnect</a>
+							</p> <a href="#" class="connect-to connect-to-linkedin"><i
+								class="fa fa-linkedin-square"></i>
+								<p>Connect with LinkedIn</p></a>
+						</li>
+						<li>
+							<p>
+								Connected to <a href="#" class="connect-to-link">linkedin.com/ramy</a>
+							</p>
+							<p>
+								Having a trouble? <a href="#">Try reconnect</a> <a href="#"
+									class="disconnect">Disconnect</a>
+							</p> <a href="#" class="connect-to connect-to-twitter"><i
+								class="fa fa-twitter-square"></i>
+								<p>Connect with Twitter</p></a>
+						</li>
+					</ul>
+				</h:form> <!--  Bulk Mail Settings  --> <h:form id="bulkmailform"
+					class="settingsFormArea cont5">
+					<p:growl id="growl" />
+					<ul class="left-side-settings">
+						<li><label for="fromEmail">Email</label> <p:inputText
+								label="please insert email"
+								value="#{mailConfigManagedBean.fromEmail}"
+								id="fromEmailasdfghjk" required="true" /></li>
+						<li><label for="emailpasswrod">Password</label> <p:password
+								required="true" id="passwordonedfghjk"
+								label="please insert password"
+								value="#{mailConfigManagedBean.fromEmailPass}" /></li>
+
+
+						<li><label for="outGoingMail">Outgoing Mail server</label> <p:inputText
+								label="please insert outgoing mail server"
+								value="#{mailConfigManagedBean.outGoingMail}" id="outGoingMail"
+								required="true" /></li>
+						<li><label for="portNumber">Port Number</label> <p:inputText
+								required="true" label="please insert port number"
+								value="#{mailConfigManagedBean.portNumber}" size="50" /></li>
+						<li><label for="timeOut">Time Out</label> <p:inputText
+								value="#{mailConfigManagedBean.timeOut}" /></li>
+						<p:outputPanel id="zz">
+							<li style="width: 500px;"><a href="usersettings.xhtml"
+								class="greenBtnSettings">Cancel</a> <p:commandLink value="Test"
+									styleClass="greenBtnSettings" update="savebtn"
+									actionListener="#{mailConfigManagedBean.testConfiguration()}">
+
+								</p:commandLink> <p:commandLink id="savebtn" value="Save"
+									styleClass="greenBtnSettings"
+									actionListener="#{mailConfigManagedBean.SaveConfiguration()}"
+									disabled="#{mailConfigManagedBean.disableSave}" /></li>
+						</p:outputPanel>
+					</ul>
+
+					<ul class="form-buttons-wrapper"
+						style="margin-left: 500px; margin-top: -487px">
+						<li><label for="encrypType">Encryption Type</label> <p:selectOneMenu
+								label="please select encryption type" required="true"
+								style="width:110px" value="#{mailConfigManagedBean.encryptType}"
+								id="dEncrypt">
+								<f:selectItem itemLabel="Select Type" itemValue="-1"
+									noSelectionOption="true" />
+								<f:selectItem itemLabel="SSL" itemValue="SSL" />
+								<f:selectItem itemLabel="TLS" itemValue="TLS" />
+								<f:selectItem itemLabel="None" itemValue="None" />
+							</p:selectOneMenu></li>
+						<li></li>
+						<li></li>
+						<li><label for="auth">Authentication</label> <p:selectOneRadio
+								required="true" label="authenication required" id="auth"
+								value="#{mailConfigManagedBean.authentication}">
+								<f:selectItem itemLabel="True" itemValue="1" />
+								<f:selectItem itemLabel="False" itemValue="0" />
+							</p:selectOneRadio></li>
+
+					</ul>
+
+				</h:form> <!-- Send Invitations --> <h:form class="settingsFormArea cont6">
+					<div class="settingsFormArea cont6">
+						<ul class="left-side-settings">
+							<!-- <li><label for="senderEmail">User Email</label> <p:inputText
+									value="#{sendInvitationManagedBean.senderEmail}" 
+									id="emailSender" required="true" /></li> -->
+							<li><label for="inviteEmails">Invite Emails</label> <p:inputTextarea
+									rows="5" cols="30"
+									value="#{sendInvitationManagedBean.inviteEmail}"
+									label="please enter reciver email(s)" required="true"
+									autoResize="false" /></li>
+
+							<li><p:commandLink value="Send"
+									action="#{sendInvitationManagedBean.send()}"
+									styleClass="greenBtnSettings" /><a href="usersettings.xhtml"
+								class="greenBtnSettings">Cancel</a></li>
+
+						</ul>
+					</div>
+				</h:form> </aside>
+				<div class="clearFix"></div>
+
+
+
+
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
+
+

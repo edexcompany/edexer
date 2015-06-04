@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 3, 2015 11:11:41 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.WebsiteMessage" table="website_message" catalog="edexer">
+        <composite-id name="id" class="com.edexer.model.WebsiteMessageId">
+            <key-property name="keyName" type="string">
+                <column name="key_name" length="200" />
+            </key-property>
+            <key-property name="value" type="string">
+                <column name="value" length="65535" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>User module</title>
+	<!--  <h:outputStylesheet library="css" name="styles.css" /> -->
+
+</h:head>
+<h:body>
+	<!-- style="min-width:400px;min-height:200px;" -->
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:menuitem value="Home" url="#" icon="ui-icon-close" />
+
+			<p:submenu label="Subscription" icon="ui-icon-gear">
+				<p:menuitem value="Upgrade to Pro"
+					actionListener="#{userHomeManagedBean.upgradeToPersonalPro}"
+					icon="ui-icon-disk" update="messages" />
+				<p:menuitem value="Upgrade to Corporate"
+					actionListener="#{userHomeManagedBean.upgradeToCorp}"
+					icon="ui-icon-disk" update="messages" />
+			</p:submenu>
+
+			<f:facet name="options">
+				<p:inputText style="margin-right:10px" placeholder="Search" />
+				<p:commandButton value="Logout" icon="ui-icon-extlink"
+					action="#{userHomeManagedBean.logOutAction}" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<p:layout>
+		<p:layoutUnit position="north" size="1">
+
+		</p:layoutUnit>
+
+
+		<p:layoutUnit position="west" size="200" header="User Settings"
+			resizable="true" collapsible="true"
+			style="min-width:310px;min-height:500px;">
+			<h:form id="main">
+				<p:growl autoUpdate="true" />
+
+				<p:panelMenu style="width:300px">
+					<p:submenu label="Profile Info">
+						<p:menuitem value="View my profile statistics"
+							actionListener="#{userHomeManagedBean.viewMyProfileStats}"
+							icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+							ajax="true" />
+					</p:submenu>
+					<p:submenu label="Invitations">
+						<p:menuitem value="Send invitation to.."
+							actionListener="#{userHomeManagedBean.viewInvitations}"
+							icon="ui-icon-close" update=":#{p:component('mainPanel')}"
+							ajax="true" />
+					</p:submenu>
+					<p:submenu label="Manage">
+
+						<p:menuitem value="users"
+							actionListener="#{userHomeManagedBean.viewUsers}"
+							icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+							ajax="true" />
+
+
+						<p:menuitem value="Tags"
+							actionListener="#{userHomeManagedBean.viewTags}"
+							icon="ui-icon-disk" update=":#{p:component('mainPanel')}"
+							ajax="true" />
+
+					</p:submenu>
+				</p:panelMenu>
+			</h:form>
+		</p:layoutUnit>
+
+
+		<p:layoutUnit position="center">
+			<p:outputPanel id="mainPanel">
+
+				<!-- user info panel form -->
+				<h:panelGroup id="userInfo"
+					rendered="#{userHomeManagedBean.showProfileStats}">
+					<h:outputLabel value="User info to be added here" />
+					<h:panelGrid columns="2" style="width:100%"
+						columnClasses="logo,detail">
+						<p:graphicImage library="images" name="images.png" />
+
+						<p:outputPanel>
+							<h:panelGrid columns="3" cellpadding="5">
+								<h:outputText value="You have [" />
+								<h:outputText
+									value="#{userHomeManagedBean.businessCardsForUser}"
+									style="font-weight: bold" />
+								<h:outputText value="] Business Cards"></h:outputText>
+								<h:outputText value="Also have [" />
+								<h:outputText
+									value="#{userHomeManagedBean.userSubscriptionCount}"
+									style="font-weight: bold" />
+								<h:outputText value="] Users under your Corp account"></h:outputText>
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+				</h:panelGroup>
+
+				<!-- tages panel form -->
+				<h:panelGroup id="tagsMgmt"
+					rendered="#{userHomeManagedBean.showTags}">
+					<h:form id="newTag">
+						<p:panelGrid columns="2">
+							<p:inputText value="#{userHomeManagedBean.newTagValue}"
+								placeholder="Tag value" required="true" size="50" />
+							<p:commandButton value="add"
+								actionListener="#{userHomeManagedBean.addTag}"
+								update=":#{p:component('tagsList')}" ajax="true">
+							</p:commandButton>
+						</p:panelGrid>
+					</h:form>
+					<h:form id="tagListForm">
+						<p:dataTable var="tag" value="#{userHomeManagedBean.userTags}"
+							rowIndexVar="rowId" id="tagsList" editable="true">
+
+							<!-- <f:facet name="header">
+                                Tags List
+                            </f:facet> -->
+
+							<p:ajax event="rowEdit"
+								listener="#{userHomeManagedBean.onTagRowEdit}"
+								update=":#{p:component('tagsList')}" />
+							<p:column headerText="Tag Value" style="width:150px">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{tag.tagName}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{tag.tagName}" style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:32px">
+								<!-- <p:rowEditor /> -->
+								<p:commandButton icon="ui-icon-close"
+									action="#{userHomeManagedBean.deleteTag(tag,rowId)}"
+									ajax="false">
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+
+				<!-- user management table -->
+				<h:panelGroup id="userMgmt"
+					rendered="#{userHomeManagedBean.showUsersList}">
+					<h:form>
+						<p:dataTable value="#{userHomeManagedBean.userList}" var="user"
+							editable="true" style="margin-bottom:20px">
+							<p:column>
+								<f:facet name="header">
+									<h:column>
+										<h:outputText value="Name (Email)"></h:outputText>
+									</h:column>
+								</f:facet>
+								<h:outputText value="#{user.firstName}"></h:outputText>
+								<h:outputText value="- #{user.userEmail}"></h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:column>
+										<h:outputText value="Role"></h:outputText>
+									</h:column>
+								</f:facet>
+								<p:selectOneMenu id="actasList" value="#{userHomeManagedBean.actAsMbean.actAs}" converter="actAsConverter" >
+									<f:selectItems value="#{userHomeManagedBean.actAsMbean.getActAsList2(userHomeManagedBean.getUserSubscriptionForUser(user.userId))}" var="actAss" itemLabel="#{actAss.actAsName}" 
+									itemValue="#{actAss}"/>
+									<p:ajax listener="#{userHomeManagedBean.updateUserActAsRole(user.userId)}" /> 
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:column>
+										<h:outputText value="Delete"></h:outputText>
+									</p:column>
+								</f:facet>
+								<p:commandButton title="Delete" icon="ui-icon-trash"
+									id="deleteButton" action="#{userHomeManagedBean.doDelete}"
+									oncomplete="javascriptFunction();" />
+							</p:column>
+
+						</p:dataTable>
+					</h:form>
+
+
+				</h:panelGroup>
+
+				<!-- send invitation form-->
+				<h:panelGroup id="sendInv"
+					rendered="#{userHomeManagedBean.showInvitations}">
+
+					<h:form>
+						<h:panelGrid columns="1">
+							<h:outputText value="email to send invitation to:"></h:outputText>
+							<h:inputTextarea name="email"
+								value="#{invitationManagedBean.email}" />
+							<h:commandButton
+								actionListener="#{invitationManagedBean.sendInvitation}"
+								value="send" />
+						</h:panelGrid>
+					</h:form>
+				</h:panelGroup>
+			</p:outputPanel>
+		</p:layoutUnit>
+	</p:layout>
+
+	<!-- <p:dialog widgetVar="eventDialog" header="Event Details"
+		showEffect="clip" hideEffect="clip">
+		<h:panelGrid id="eventDetails" columns="2">
+
+			<p:outputLabel for="from" value="From:" />
+			<p:calendar id="from" value="#{scheduleView.event.startDate}"
+				pattern="dd/MM/yyyy HH:mm">
+				<p:ajax event="blur" update="addButton dateError"
+					listener="#{scheduleView.doValidateDates}" />
+			</p:calendar>
+
+			<p:outputLabel for="to" value="To:" />
+			<p:calendar id="to" value="#{scheduleView.event.endDate}"
+				pattern="dd/MM/yyyy HH:mm">
+				<p:ajax event="blur" update="addButton dateError"
+					listener="#{scheduleView.doValidateDates}" />
+			</p:calendar>
+
+			<h:outputLabel for="title" value="Desc:" />
+			<p:inputTextarea id="title" value="#{scheduleView.event.description}"
+				required="true">
+				<p:ajax event="blur" update="addButton descError"
+					listener="#{scheduleView.doValidDescString}" />
+			</p:inputTextarea>
+
+			<h:outputLabel for="allDay" value="All Day:" />
+			<h:selectBooleanCheckbox id="allDay"
+				value="#{scheduleView.event.allDay}" />
+
+			<p:commandButton type="reset" value="Reset" />
+			<p:commandButton id="addButton" action="success"
+				disabled="#{not scheduleView.isValidDates or not scheduleView.isValidDesc}"
+				value="Save" actionListener="#{scheduleView.addEvent}"
+				oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
+			</p:commandButton>
+		</h:panelGrid>
+		<h:outputText id="descError" style="color: red"
+			value="#{scheduleView.descErrorMsg}" />
+		<h:outputText id="dateError" style="color: red"
+			value="#{scheduleView.dateErrorMsg}" />
+	</p:dialog> -->
+
+</h:body>
+</html>

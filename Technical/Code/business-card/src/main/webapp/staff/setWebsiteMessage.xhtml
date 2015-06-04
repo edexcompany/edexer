@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff | Setting</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<div style="display: inline-block;">
+			<p:menubar style="width:1225px;">
+				<p:submenu label="Users" icon="ui-icon-document">
+					<p:menuitem value="New" url="adduser.xhtml" />
+					<p:menuitem value="Users" url="users.xhtml" />
+				</p:submenu>
+				<p:submenu label="Subscriptions" icon="ui-icon-document">
+					<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+				</p:submenu>
+				<p:submenu label="Settings" icon="ui-icon-document">
+					<p:menuitem value="Setting" url="setting.xhtml" />
+					<p:menuitem value="website Message" url="setWebsiteMessage.xhtml" />
+				</p:submenu>
+
+
+			</p:menubar>
+
+		</div>
+		<div style="margin-left: 1238px; margin-top: -60px;">
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+			</p:commandButton>
+		</div>
+
+		<h1>Home Message</h1>
+		<p:growl id="msgs" showDetail="true" escape="false" autoUpdate="true"  />
+		<f:loadBundle basename="settings" var="settingsbundel" />
+
+<!-- 		<p:messages id="messages" showDetail="true" showSummary="true" -->
+<!-- 			autoUpdate="true" closable="true" /> -->
+		<p:panelGrid columns="2">
+
+
+			<p:outputLabel value=" Subject  " />
+			<p:inputText
+				value="#{dynamicWebSiteMessageManagedBean.messageSubject}"
+				style="width:290px" />
+
+			<p:outputLabel value="Body" />
+			<p:inputTextarea rows="3"
+				value="#{dynamicWebSiteMessageManagedBean.message}" cols="30"
+				label="please enter web site message."
+				style="margin:10px 0px 0px 0px;" autoResize="false" />
+			<p:outputLabel value="Footer" />
+			<p:inputTextarea rows="3"
+				value="#{dynamicWebSiteMessageManagedBean.footer}" cols="30"
+				label="please enter web site footer message."
+				style="margin:10px 0px 0px 0px;" autoResize="false" />
+
+		</p:panelGrid>
+		<div style="width: 600px; text-align: center;">
+			<p:commandButton
+				action="#{dynamicWebSiteMessageManagedBean.insert()}" value="Save"></p:commandButton>
+		</div>
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff | Add User</title>
+</h:head>
+<h:body>
+<h:form>
+	<div style="display: inline-block;">
+		<p:menubar style="width:1225px;">
+			<p:submenu label="Users" icon="ui-icon-document">
+				<p:menuitem value="New" url="adduser.xhtml" />
+				<p:menuitem value="Users" url="users.xhtml" />
+			</p:submenu>
+			<p:submenu label="Subscriptions" icon="ui-icon-document">
+				<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+			</p:submenu>
+		
+			<p:submenu label="Settings" icon="ui-icon-document">
+				<p:menuitem value="Setting" url="setting.xhtml" />
+				<p:menuitem value="website Message" url="setWebsiteMessage.xhtml" />
+			</p:submenu>
+		</p:menubar>
+
+	</div>
+	<div style="margin-left: 1238px; margin-top: -60px;">
+		<p:commandButton value="Logout" icon="ui-icon-extlink" type="button"
+			id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+			<p:commandLink value="Logout" icon="ui-icon-extlink" 
+				id="commIn" action="#{userHomeManagedBean.logOutAction()}" />
+		</p:commandButton>
+	</div>
+	</h:form>
+	<h:form id="form">
+		<h1>Add User</h1>
+		<p:growl id="msgs" showDetail="true" />
+
+		<f:loadBundle basename="businesscardvalidations"
+			var="validationsbundle" />
+
+		<p:messages id="messages" showDetail="true" showSummary="true"
+			autoUpdate="true" closable="true" />
+
+		<ul>
+			<li><p:outputLabel value="First Name" /> <p:inputText
+					id="firstname" value="#{staffUsersManagedBean.newUser.firstName}">
+					<f:validateLength minimum="0" maximum="50"></f:validateLength>
+				</p:inputText></li>
+			<li><p:outputLabel value="Last Name" /> <p:inputText
+					id="lastname" value="#{staffUsersManagedBean.newUser.lastName}">
+					<f:validateLength minimum="0" maximum="50"></f:validateLength>
+				</p:inputText></li>
+			<li><p:outputLabel value="Title" /> <p:inputText id="title"
+					value="#{staffUsersManagedBean.newUser.title}">
+					<f:validateLength minimum="0" maximum="50"></f:validateLength>
+				</p:inputText></li>
+			<li><p:outputLabel value="Email" id="email"
+					placeholder="emailaddress@example.com"
+					validatorMessage="invalid email address pattern." required="true"
+					requiredMessage="Please enter you email address" size="150" /> <p:inputText
+					label="please enter your email"
+					value="#{staffUsersManagedBean.newUser.userEmail}">
+					<f:validateRegex pattern="#{validationsbundle.EMAIL_REGEX}" />
+				</p:inputText></li>
+			<li><p:outputLabel value="Mobile" /> <p:inputText id="mobile"
+					value="#{staffUsersManagedBean.newUser.mobile}">
+					<f:validateLength minimum="0" maximum="50"></f:validateLength>
+					<f:validateRegex pattern="#{validationsbundle.PHONE_REGEX}" />
+				</p:inputText></li>
+			<li><p:outputLabel value="Phone" /> <p:inputText id="phone"
+					value="#{staffUsersManagedBean.newUser.phone}">
+					<f:validateLength minimum="0" maximum="50"></f:validateLength>
+					<f:validateRegex pattern="#{validationsbundle.PHONE_REGEX}" />
+				</p:inputText></li>
+			<li><p:outputLabel value="User Role" /> <p:selectOneMenu
+					id="roleVal" value="#{staffUsersManagedBean.newUser.role}"
+					converter="roleConverter" var="r">
+					<f:selectItems value="#{utilitiesManagesBean.rolesList}" var="role"
+						itemLabel="#{role.roleName}" itemValue="#{role}" />
+				</p:selectOneMenu></li>
+		</ul>
+
+		<p:commandButton action="#{staffUsersManagedBean.addUser}" value="Add"></p:commandButton>
+	</h:form>
+</h:body>
+</html>

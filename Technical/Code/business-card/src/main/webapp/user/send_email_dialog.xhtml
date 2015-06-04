@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Send Email</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+<h:body>
+	<p:panelGrid id="add_user_1" columns="2" cellpadding="10">
+		<h:outputText id="subject" value="Subject" />
+		<p:inputText id="txtsub" value="#{sendEmailManagedBean.subject}" />
+		<h:outputText id="body" value="Body" />
+		<p:editor id="txtEditor" widgetVar="editorWidget"
+			value="#{sendEmailManagedBean.body}" width="600" />
+		<p:commandButton value="Submit" update="display"
+			oncomplete="PF('dlg').show()"  icon="ui-icon-disk" />
+
+		<p:commandButton value="Clear" type="button"
+			onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
+
+
+	</p:panelGrid>
+
+	<p:dialog header="Content" widgetVar="dlg" showEffect="fade"
+		hideEffect="fade">
+		<h:outputText id="display" value="#{sendEmailManagedBean.body}"
+			escape="false" />
+	</p:dialog>
+</h:body>
+</html>

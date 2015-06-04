@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/images/findon-icon.ico" />
+
+	<h:outputStylesheet library="css" name="normalize.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="prime_customizations.css" />
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/font-awesome.css" />
+	<link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resources/css/fonts/lato.css" />
+	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="prime_customizations.js" />
+	<title><ui:insert name="title">FindOn</ui:insert></title>
+
+</h:head>
+
+<h:body>
+
+
+	<header> <ui:insert name="header">
+		<ui:include src="/templates/common/commonHeader.xhtml" />
+	</ui:insert> </header>
+
+	<div id="content" class="homeContainer">
+		<ui:insert name="content">
+			<ui:include src="/templates/common/commonContent.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="/templates/common/commonFooter.xhtml" />
+		</ui:insert>
+	</div>
+
+
+</h:body>
+
+</html>
+
+

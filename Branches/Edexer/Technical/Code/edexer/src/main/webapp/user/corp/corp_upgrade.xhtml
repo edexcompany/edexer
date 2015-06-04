@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+	<ui:composition template="/templates/common/commonLayout.xhtml">
+		<ui:define name="content">
+			<div class="content-wrapper">
+				<p:messages id="messages" showDetail="true" showSummary="true"
+					autoUpdate="true" closable="true" />
+				<aside class="left-side">
+				<h2>Upgrade</h2>
+
+				<ul class="setting-tabs-titles">
+					<li><a href="#" class="settingsTitle" data-cont="cont1"><i
+							class=" fa fa-archive"></i>Upgrade</a></li>
+				</ul>
+				</aside>
+
+
+				<aside class="main-content"> <!--   Profile Settings  --> <h:form
+					class=" settingsFormArea cont1">
+
+					<ul class="left-side-settings">
+						<li><label for="charge">Charge</label> <p:inputText
+								value="50.00 $" disabled="true" /></li>
+
+						<li><label for="methodOfPayment">methodOfPayment</label> <p:selectOneMenu
+								id="methodOfPayment" value="XXX" style="width:125px">
+								<f:selectItem itemLabel="Visa" itemValue="Visa" />
+								<f:selectItem itemLabel="PayPal" itemValue="PayPal" />
+								<f:selectItem itemLabel="Master Card" itemValue="MC" />
+							</p:selectOneMenu></li>
+					</ul>
+
+					<ul class="form-buttons-wrapper">
+						<li><a href="management.xhtml" class="greenBtnSettings">Cancel</a></li>
+						<li><p:commandLink value="Upgrade"
+								styleClass="greenBtnSettings"
+								actionListener="#{userHomeManagedBean.upgradeToCorp}" /></li>
+					</ul>
+				</h:form> </aside>
+				<div class="clearFix"></div>
+
+
+
+
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

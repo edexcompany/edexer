@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 2, 2015 10:45:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.Tags" table="tags" catalog="edexer">
+        <id name="tagId" type="java.lang.Integer">
+            <column name="tag_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userSubscription" class="com.edexer.model.UserSubscription" fetch="select">
+            <column name="user_id" not-null="true" />
+            <column name="sub_type" not-null="true" />
+        </many-to-one>
+        <property name="tagName" type="string">
+            <column name="tag_name" length="50" not-null="true" />
+        </property>
+        <set name="businessCards" table="bc_tags" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="tags_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.edexer.model.BusinessCard">
+                <column name="bc_id" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

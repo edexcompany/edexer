@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Staff | Users</title>
+</h:head>
+<h:body>
+<h:form id="form">
+		<div style="display: inline-block;">
+			<p:menubar style="width:1225px;">
+				<p:submenu label="Users" icon="ui-icon-document">
+					<p:menuitem value="New" url="adduser.xhtml" />
+					<p:menuitem value="Users" url="users.xhtml" />
+				</p:submenu>
+				<p:submenu label="Subscriptions" icon="ui-icon-document">
+					<p:menuitem value="Subscriptions" url="usersubscriptions.xhtml" />
+				</p:submenu>
+				<p:submenu label="Settings" icon="ui-icon-document">
+					<p:menuitem value="Setting" url="setting.xhtml" />
+				</p:submenu>
+			</p:menubar>
+
+		</div>
+		<div style="margin-left: 1238px; margin-top: -60px;">
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				id="commInMenu" action="#{userHomeManagedBean.logOutAction()}">
+
+			</p:commandButton>
+		</div>
+	<h1>Users</h1>
+	
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable var="car" value="#{staffUsersManagedBean.usersList}"
+			widgetVar="carsTable" emptyMessage="No users found"
+			filteredValue="#{staffUsersManagedBean.filteredUsersList}"
+			editable="true" paginator="true" rows="10" id="datatable">
+
+			<p:ajax event="rowEdit" listener="#{staffUsersManagedBean.onRowEdit}"
+				update=":form:msgs" />
+			<p:ajax event="rowEditCancel"
+				listener="#{staffUsersManagedBean.onRowCancel}" update=":form:msgs" />
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Search all fields" />
+					<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()"
+						style="width:150px" placeholder="Enter keyword" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column filterBy="#{car.firstName}" headerText="First Name"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.firstName}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.firstName}" style="width:100%">
+							<f:validateLength minimum="0" maximum="50"></f:validateLength>
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+
+
+			</p:column>
+
+			<p:column filterBy="#{car.lastName}" headerText="Last Name"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.lastName}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.lastName}" style="width:100%">
+							<f:validateLength minimum="0" maximum="50"></f:validateLength>
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column filterBy="#{car.userEmail}" headerText="Email"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.userEmail}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.userEmail}" style="width:100%">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column filterBy="#{car.mobile}" headerText="Mobile"
+				filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.mobile}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.mobile}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column filterBy="#{car.role.roleName}" headerText="Role"
+				filterMatchMode="contains" style="width:250px">
+				<f:facet name="filter">
+					<p:selectOneButton onchange="PF('carsTable').filter()">
+						<f:selectItem itemLabel="All" itemValue="" />
+						<f:selectItem itemLabel="Admin" itemValue="Admin" />
+						<f:selectItem itemLabel="User" itemValue="User" />
+					</p:selectOneButton>
+				</f:facet>
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{car.role.roleName}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.role.roleName}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Password">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="**************" />
+					</f:facet>
+					<f:facet name="input">
+
+						<p:inputText value="#{car.password}" style="width:100%"
+							type="password">
+							<f:validateLength minimum="6" maximum="50">
+							</f:validateLength>
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column style="width:32px">
+				<p:rowEditor />
+			</p:column>
+			<p:column style="width:32px">
+				<p:commandLink styleClass="removeCard txtWhite txt16"
+					action="#{staffUsersManagedBean.deleteUser(car.userId)}"
+					ajax="true">
+					<i class="ui-icon ui-icon-close"></i>
+					<p:confirm header="Confirmation"
+						message="Are you sure you want to delete this user ?"
+						icon="ui-icon-alert" />
+					<p:ajax update="datatable" />
+					<p:ajax update=":form:msgs" />
+				</p:commandLink>
+
+			</p:column>
+		</p:dataTable>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
+
+	</h:form>
+</h:body>
+</html>

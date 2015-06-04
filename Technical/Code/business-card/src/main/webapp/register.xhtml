@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>User module</title>
+	<f:metadata>
+		<f:viewParam name="x"
+			value="#{registerUserManagedBean.subscriptionType}"></f:viewParam>
+		<f:viewParam name="y" value="#{registerUserManagedBean.parentUserId}"></f:viewParam>
+		<f:event listener="#{registerUserManagedBean.handleRequestParams}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<h:outputStylesheet library="css" name="normalize.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="prime_customizations.css" />
+	<link type="text/css" rel="stylesheet"
+		href="../resources/css/font-awesome.css" />
+	<link type="text/css" rel="stylesheet"
+		href="resources/css/bootstrap.css" />
+	<link type="text/css" rel="stylesheet"
+		href="../resources/css/index.css" />
+	<link type="text/css" rel="stylesheet"
+		href="../resources/css/fonts/lato.css" />
+	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="prime_customizations.js" />
+
+</h:head>
+<h:body>
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" showSummary="true"
+			autoUpdate="true" closable="true" />
+
+		<center>
+			<div>
+				<div class="f-registration border-radius12 col-sm-4"
+					style="margin: 0px auto;float: none;">
+					<div class="col-xs-12">
+						<h2 class="text-center">Sign up for free now!</h2>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+
+							<p:inputText id="first_name" placeholder="Firstname"
+								styleClass="form-control"
+								value="#{registerUserManagedBean.fisrtName}" size="50">
+								<f:validateLength minimum="0" maximum="50"></f:validateLength>
+							</p:inputText>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<p:inputText id="last_name" styleClass="form-control"
+								placeholder="Lastname"
+								value="#{registerUserManagedBean.lastName}" size="50">
+								<f:validateLength minimum="0" maximum="50"></f:validateLength>
+							</p:inputText>
+
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<p:inputText id="email" value="#{registerUserManagedBean.email}"
+								styleClass="form-control" placeholder="E-mail"
+								validatorMessage="invalid email address pattern."
+								required="true" size="50"
+								requiredMessage="Please enter you email address">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<p:password id="password" styleClass="form-control"
+								value="#{registerUserManagedBean.password}"
+								placeholder="Password" required="true"
+								requiredMessage="Please enter password">
+								<f:validateLength minimum="6" maximum="50">
+								</f:validateLength>
+							</p:password>
+
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="password" class="form-control" id="password"
+								placeholder="Confirm password" />
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<p:inputMask mask="9999 999 9999" id="mobile"
+								styleClass="form-control"
+								value="#{registerUserManagedBean.mobile}" placeholder="Mobile">
+							</p:inputMask>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<p class="text-center">
+							By clicking Sign up, you agree to our <a href="#">Terms of
+								Use</a> and <a href="#">Privacy Policy</a>
+						</p>
+					</div>
+					<div class="col-md-12 text-center">
+						<h:commandLink value="Sign Up"
+							styleClass="btn btn-success border-radius20"
+							action="#{registerUserManagedBean.registerAction}"></h:commandLink>
+					</div>
+					<div class="col-md-12 text-center registration-social">
+						Or sign up with: <a href="#"><i class="fa fa-facebook-square"></i></a><a
+							href="#"><i class="fa fa-linkedin-square"></i></a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</center>
+	</h:form>
+
+
+</h:body>
+</html>

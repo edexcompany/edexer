@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+	<title>{App name} | Add Business Card</title>
+</h:head>
+<h:body>
+	<h2>Add Business Card</h2>
+
+	<h:form id="form1" enctype="multipart/form-data">
+
+		<p:messages id="messages" showDetail="true" showSummary="true"
+			autoUpdate="true" closable="true" />
+		<h:panelGroup id="dynaFormGroup">
+
+
+			<pe:dynaForm id="basicForm" openExtended="true"
+				value="#{businessCardManagedBean.basicModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+
+				<pe:dynaFormControl type="name" for="nam">
+					<p:inputText id="nam" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="50"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="selectCountries" for="selContries"
+					styleClass="select">
+					<p:selectOneMenu id="selContries" value="#{data.value}"
+						required="#{data.required}">
+						<f:selectItems value="#{dynaFormController.languages}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="mobileForm" openExtended="true"
+				value="#{businessCardManagedBean.mobileModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="mobile" for="mob">
+					<p:inputText id="mob" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="20"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addMobile" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addMobileField}"
+						update="mobileForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="telephoneForm" openExtended="true"
+				value="#{businessCardManagedBean.telephoneModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="telephone" for="tel">
+					<p:inputText id="tel" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="20"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addTelephone" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addTelephoneField}"
+						update="telephoneForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="faxForm" openExtended="true"
+				value="#{businessCardManagedBean.faxModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="fax" for="fax">
+					<p:inputText id="fax" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="20"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addFax" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addFaxField}" update="faxForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+			<pe:dynaForm id="emailForm" openExtended="true"
+				value="#{businessCardManagedBean.emailModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="email" for="email">
+					<p:inputText id="email" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="150"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addEmail" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addEmailField}"
+						update="emailForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="titleForm" openExtended="true"
+				value="#{businessCardManagedBean.titleModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="company" for="company">
+					<p:inputText id="company" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="100"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="department" for="department">
+					<p:inputText id="department" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="45"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="title" for="title">
+					<p:inputText id="title" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="45"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+
+				<pe:dynaFormControl type="sector" for="sector">
+					<p:selectOneMenu id="sector" value="#{data.value}"
+						required="#{data.required}" filter="true">
+						<f:selectItems value="#{businessCardManagedBean.sectors}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+
+
+				<pe:dynaFormControl type="addTitle" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addTitleField}"
+						update="titleForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="websiteForm" openExtended="true"
+				value="#{businessCardManagedBean.websiteModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="website" for="website">
+					<p:inputText id="website" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="150"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addWebsite" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addWebsiteField}"
+						update="websiteForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+			<pe:dynaForm id="addressForm" openExtended="true"
+				value="#{businessCardManagedBean.addressModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="street" for="str">
+					<p:inputText id="str" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="80"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="citystate" for="cty">
+					<p:inputText id="cty" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="80"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="zip" for="zip">
+					<p:inputText id="zip" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="20"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="country" for="country">
+					<p:selectOneMenu id="country" value="#{data.value}"
+						required="#{data.required}">
+						<f:selectItems value="#{businessCardManagedBean.countries}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+
+			</pe:dynaForm>
+			<pe:dynaForm id="imForm" openExtended="true"
+				value="#{businessCardManagedBean.imModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="imType" for="imType">
+					<p:selectOneMenu id="imType" value="#{data.value}"
+						required="#{data.required}">
+						<f:selectItems value="#{businessCardManagedBean.ims}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="imId" for="imId">
+					<p:inputText id="imId" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="150"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addIm" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addImField}" update="imForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="socialForm" openExtended="true"
+				value="#{businessCardManagedBean.socialModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="socialType" for="socialType">
+					<p:selectOneMenu id="socialType" value="#{data.value}"
+						required="#{data.required}">
+						<f:selectItems value="#{businessCardManagedBean.socialNetworks}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="socialId" for="socialId">
+					<p:inputText id="socialId" value="#{data.value}"
+						required="#{data.required}">
+						<f:validateLength maximum="150"></f:validateLength>
+					</p:inputText>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="addSocial" for="btn">
+					<p:commandButton value="+" ajax="true"
+						action="#{businessCardManagedBean.addSocialField}"
+						update="socialForm" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="noteForm" openExtended="true"
+				value="#{businessCardManagedBean.noteModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="textarea" for="tarea">
+					<p:inputTextarea id="tarea" value="#{data.value}"
+						required="#{data.required}" autoResize="true" />
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+
+			<pe:dynaForm id="subscriptionForm" openExtended="true"
+				value="#{businessCardManagedBean.subscriptionModel}" var="data"
+				autoSubmit="true" buttonBarPosition="both"
+				widgetVar="dynaFormWidget">
+				<pe:dynaFormControl type="subscription" for="subscription">
+					<p:selectOneMenu id="subscription" required="true"
+						value="#{businessCardManagedBean.subscriptionType}">
+						<p:ajax
+							listener="#{businessCardManagedBean.setAutocompleteMethod}"
+							update="subscriptionForm" />
+						<f:selectItems
+							value="#{businessCardManagedBean.subscriptionTypeMap}" />
+					</p:selectOneMenu>
+				</pe:dynaFormControl>
+				<pe:dynaFormControl type="tags" for="tags">
+					<p:autoComplete id="tags" multiple="true"
+						value="#{businessCardManagedBean.selectedTags}"
+						completeMethod="#{tagsManagedBean.getPersonalTagsList}"
+						var="tagVar" itemLabel="#{tagVar.tagName}" itemValue="#{tagVar}"
+						binding="#{businessCardManagedBean.tagsAutocompleteControl}"
+						converter="tagConverter">
+						<p:ajax event="itemSelect" listener="#{businessCardManagedBean.handleTagSelect}"
+							 />
+						<p:ajax event="itemUnselect" listener="#{businessCardManagedBean.handleTagUnselect}"
+							/>	
+					</p:autoComplete>
+				</pe:dynaFormControl>
+			</pe:dynaForm>
+		</h:panelGroup>
+
+
+		<p:fileUpload mode="advanced" skinSimple="true" multiple="false"
+			auto="true"
+			fileUploadListener="#{businessCardManagedBean.handleFileUpload}" />
+
+
+
+		<p:commandButton value="Add"
+			actionListener="#{businessCardManagedBean.addBusinessCard}"></p:commandButton>
+
+
+	</h:form>
+
+
+
+
+</h:body>
+</html>

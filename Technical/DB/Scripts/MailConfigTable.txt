@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `edexer`.`mail_config`
+(
+`mail_config_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+`user_id` INT UNSIGNED NOT NULL UNIQUE,
+`from_email` VARCHAR(50) NOT NULL,
+`from_email_password` VARCHAR(50) NOT NULL,
+`encryption_type` VARCHAR(50) NOT NULL,
+`outgoing_mail_server` VARCHAR(50) NOT NULL,
+`port_number` INT NOT NULL,
+`authentication` boolean NULL,
+`time_out` int Null,
+PRIMARY KEY (`mail_config_id`),
+CONSTRAINT `fk_email_config_User`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `edexer`.`user` (`user_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT 
+)ENGINE = InnoDB;

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 2, 2015 10:45:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.ActAs" table="act_as" catalog="edexer">
+        <id name="actAsId" type="java.lang.Integer">
+            <column name="act_as_id" />
+            <generator class="identity" />
+        </id>
+        <property name="actAsName" type="string">
+            <column name="act_as_name" length="50" not-null="true" />
+        </property>
+        <property name="desc" type="string">
+            <column name="desc" length="100" />
+        </property>
+        <set name="userSubscriptions" table="user_subscription" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="act_as" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.UserSubscription" />
+        </set>
+    </class>
+</hibernate-mapping>

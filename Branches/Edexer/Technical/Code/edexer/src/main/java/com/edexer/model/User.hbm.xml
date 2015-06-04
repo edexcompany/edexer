@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.User" table="user" catalog="edexer_edexer">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userStatus" class="com.edexer.model.UserStatus" fetch="select">
+            <column name="status" />
+        </many-to-one>
+        <many-to-one name="privacyLevel" class="com.edexer.model.PrivacyLevel" fetch="select">
+            <column name="privacy_level_id" />
+        </many-to-one>
+        <many-to-one name="role" class="com.edexer.model.Role" fetch="select">
+            <column name="roleid" />
+        </many-to-one>
+        <property name="userEmail" type="string">
+            <column name="user_email" length="50" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="50" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="50" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50" not-null="true" />
+        </property>
+        <property name="salt" type="string">
+            <column name="salt" length="50" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="20" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="20" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="75" />
+        </property>
+        <property name="activationStr" type="string">
+            <column name="activation_str" length="200" />
+        </property>
+        <property name="rememberme" type="string">
+            <column name="rememberme" length="45" />
+        </property>
+        <property name="userAvatar" type="string">
+            <column name="user_avatar" length="200" />
+        </property>
+        <set name="bcRequestsForSenderUserId" table="bc_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sender_user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.BcRequest" />
+        </set>
+        <set name="mailConfigs" table="mail_config" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.edexer.model.MailConfig" />
+        </set>
+        <set name="passwordResets" table="password_reset" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.PasswordReset" />
+        </set>
+        <set name="userSubscriptionsForUserId" table="user_subscription" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.UserSubscription" />
+        </set>
+        <set name="userSubscriptionsForLastEditBy" table="user_subscription" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="last_edit_by" />
+            </key>
+            <one-to-many class="com.edexer.model.UserSubscription" />
+        </set>
+        <set name="userSubscriptionsForSubscriptionOwner" table="user_subscription" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="subscription_owner" />
+            </key>
+            <one-to-many class="com.edexer.model.UserSubscription" />
+        </set>
+        <set name="bcRequestsForReciverUserId" table="bc_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="reciver_user_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.edexer.model.BcRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

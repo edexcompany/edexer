@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<f:loadBundle basename="settings" var="bundle" />
+		<div class="header-wrapper">
+			<!--      Logo            -->
+			<a href="#{request.contextPath}/user/index.xhtml"
+				class="headerLogo"> <h:graphicImage
+					value="/resources/images/findon-logo.png" alt="FindOn Logo" />
+			</a>
+
+			<!--         Search Form    -->
+
+			<div class="edSearchForm">
+				<h:form id="edSearch">
+					<p:focus context="edSearch" />
+					<p:inputText styleClass="edSearchBox txtRegular txtGrey1 txt12"
+						placeholder="Search" value="#{sessionManagedBean.searchKeyWord}">
+						<p:ajax event="keyup" update="bb" />
+					</p:inputText>
+					<h:link styleClass="edSearchBtn" outcome="index.xhtml" id="bb">
+						<f:param name="keyword"
+							value="#{sessionManagedBean.searchKeyWord}" />
+					</h:link>
+				</h:form>
+
+			</div>
+			<p:commandLink id="edSearchAdvanced"
+				styleClass="edSearchAdvanced txtRegular txtGreen1 txt12"> Advanced</p:commandLink>
+
+			<!--         Navigator    -->
+
+			<nav class="mainNav">
+			<ul>
+				<li id="home"><a class="txt12 txtGrey2 txtBold"
+					href="#{request.contextPath}/user/index.xhtml">Home</a></li>
+
+				<li id="mySubscription"><a class="txt12 txtGrey2 txtBold"
+					href="#">My Subscription</a></li>
+				<ul class="dropNav">
+					<h:form>
+						<li id="personalSubscription"><a
+							class="txt12 txtGrey2 txtBold"
+							href="#{request.contextPath}/user/personal/personal_user_home.xhtml">Personal</a></li>
+						<li id="corpSubscription"><a class="txt12 txtGrey2 txtBold"
+							href="#{request.contextPath}/user/corp/#{userHomeManagedBean.handleCorpUserClick()}">Corporate</a></li>
+						<!-- <li id="personalSubscription"><a class="txt12 txtGrey2 txtBold"
+								href="#{request.contextPath}/user/corp/corp_upgrade.xhtml">Corporate</a></li> -->
+						<!-- <h:commandLink  action="/#{userHomeManagedBean.handleCorpUserClick()}" >Corporate</h:commandLink> -->
+					</h:form>
+				</ul>
+				<li id="settings"><a class="txt12 txtGrey2 txtBold"
+					href="#{request.contextPath}/user/usersettings.xhtml">Settings</a></li>
+					<li id="requests" >
+						<a class="txt12 txtGrey2 txtBold"
+							href="/#{bundle.APPLICATION_ROOT}/user/requests.xhtml">Requests </a>
+							<p:outputPanel id="divOutputCount" styleClass="divRequest" rendered="#{bcRequestManagedBean.render}" >
+							<h:outputText value="#{bcRequestManagedBean.countNewReq}"  								
+								rendered="#{bcRequestManagedBean.render}" />
+							</p:outputPanel>
+							
+						</li>
+			</ul>
+			</nav>
+			<!--         Account Section      -->
+			<div class="accountSection">
+				<div class="accountData">
+					<a
+						href="#{request.contextPath}/user/businesscard_details.xhtml"
+						class="accountName txt12 txtRegular txtGrey2"><p:outputLabel
+							value="#{utilitiesManagesBean.fullName()}" /> </a> <br></br>
+					<p:commandLink styleClass="txt12 txtRegular txtGrey2"
+						action="#{loginManagedBean.logOutAction()}">log out</p:commandLink>
+
+				</div>
+				<a class="accountPic"
+					href="#{request.contextPath}/user/businesscard_details.xhtml">
+					<img
+					src="#{request.contextPath}/imagesPath/#{utilitiesManagesBean.userAvatarRelativePath}" />
+				</a>
+			</div>
+		</div>
+		
+       <SCRIPT type="text/javascript">
+			function handelMessage(facemessage)
+				{
+					console.log(facemessage);
+					facemessage.severity="info";
+					PF('wmsj').show([facemessage]);
+				}
+		</SCRIPT>
+		<p:growl id="msgs" widgetVar="wmsj" showDetail="true" />
+		<p:socket channel="/{room}/{user}" onMessage="handelMessage">
+			<!-- 							<p:ajax event="message" update=":profileForm:dtReceive" />  -->
+		</p:socket>
+
+	</ui:composition>
+</body>
+</html>
+
+

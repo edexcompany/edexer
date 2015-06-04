@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 2, 2015 10:45:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.Address" table="address" catalog="edexer">
+        <id name="businessCardBusinessCardId" type="int">
+            <column name="business_card_business_card_id" />
+            <generator class="foreign">
+                <param name="property">businessCard</param>
+            </generator>
+        </id>
+        <one-to-one name="businessCard" class="com.edexer.model.BusinessCard" constrained="true"></one-to-one>
+        <many-to-one name="countries" class="com.edexer.model.Countries" fetch="select">
+            <column name="country" />
+        </many-to-one>
+        <property name="street1" type="string">
+            <column name="street1" length="80" />
+        </property>
+        <property name="street2" type="string">
+            <column name="street2" length="80" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="50" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="50" />
+        </property>
+        <property name="zip" type="string">
+            <column name="zip" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

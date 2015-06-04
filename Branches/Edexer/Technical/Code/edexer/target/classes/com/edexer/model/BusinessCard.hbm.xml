@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2015 10:17:18 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.BusinessCard" table="business_card" catalog="edexer_edexer">
+        <id name="businessCardId" type="java.lang.Integer">
+            <column name="business_card_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userSubscription" class="com.edexer.model.UserSubscription" fetch="select">
+            <column name="subscription_user_id" />
+            <column name="subscription_sub_type" />
+        </many-to-one>
+        <property name="bcFirstName" type="string">
+            <column name="bc_first_name" length="50" />
+        </property>
+        <property name="middleName" type="string">
+            <column name="middle_name" length="50" />
+        </property>
+        <property name="bcLastName" type="string">
+            <column name="bc_last_name" length="50" />
+        </property>
+        <property name="birthDate" type="string">
+            <column name="birth_date" length="50" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="250" />
+        </property>
+        <property name="creator" type="int">
+            <column name="creator" not-null="true" />
+        </property>
+        <property name="avatar" type="string">
+            <column name="avatar" length="200" />
+        </property>
+        <set name="mobiles" table="mobile" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Mobile" />
+        </set>
+        <one-to-one name="address" class="com.edexer.model.Address"></one-to-one>
+        <set name="socialNetworks" table="social_network" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.SocialNetwork" />
+        </set>
+        <set name="faxes" table="fax" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Fax" />
+        </set>
+        <set name="tagses" table="bc_tags" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.edexer.model.Tags">
+                <column name="tags_id" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="emails" table="email" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Email" />
+        </set>
+        <set name="attachments" table="attachment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="business_card_business_card_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Attachment" />
+        </set>
+        <set name="websites" table="website" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Website" />
+        </set>
+        <set name="ims" table="im" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Im" />
+        </set>
+        <set name="titles" table="title" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Title" />
+        </set>
+        <set name="bcPermissionses" table="bc_permissions" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.BcPermissions" />
+        </set>
+        <set name="phones" table="phone" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="bc_id" not-null="true" />
+            </key>
+            <one-to-many class="com.edexer.model.Phone" />
+        </set>
+    </class>
+</hibernate-mapping>

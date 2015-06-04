@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2015 8:37:22 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.edexer.model.PrivacyLevel" table="privacy_level" catalog="edexer">
+        <id name="privacyId" type="java.lang.Integer">
+            <column name="privacy_id" />
+            <generator class="identity" />
+        </id>
+        <property name="privacyName" type="string">
+            <column name="privacy_name" length="50" />
+        </property>
+        <property name="desc" type="string">
+            <column name="desc" length="50" />
+        </property>
+        <set name="users" table="user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="privacy_level_id" />
+            </key>
+            <one-to-many class="com.edexer.model.User" />
+        </set>
+    </class>
+</hibernate-mapping>
